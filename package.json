@@ -4,8 +4,16 @@
   "description": "",
   "main": "./backend/src/server",
   "dependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/color": "^3.0.1",
+    "@types/colors": "^1.2.1",
+    "@types/mongoose": "^5.7.36",
+    "bcryptjs": "^2.4.3",
+    "colors": "^1.4.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
+    "mongoose": "^5.10.9",
     "node": "^14.13.1"
   },
   "devDependencies": {
@@ -16,7 +24,9 @@
     "start": "node backend/build/server",
     "server": "nodemon backend/build/server",
     "client": "npm start --prefix frontend",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "data:import": "node backend/build/seeder",
+    "data:destroy": "node backend/build/seeder -d"
   },
   "repository": {
     "type": "git",

@@ -1,5 +1,5 @@
 interface Product {
-    _id: string,
+    _id?: string,
     name: string,
     image: string,
     imageMin: string,
@@ -12,3 +12,9 @@ interface Product {
     numReviews: number,
 }
 
+interface User {
+    name: string,
+    email: string,
+    password: string,
+    isAdmin?: boolean,
+}

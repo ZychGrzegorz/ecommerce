@@ -1,6 +1,5 @@
 var products = [
     {
-        _id: '1',
         name: 'Audio Technica AT 2020 USB',
         image: '/assets/images/Audio_Technica_AT_2020_USB.jpg',
         imageMin: '/assets/imagesMin/Audio_Technica_AT_2020_USB.jpg',
@@ -13,7 +12,6 @@ var products = [
         numReviews: 12,
     },
     {
-        _id: '2',
         name: 'Basic drums',
         image: '/assets/images/Basic_drums.jpg',
         imageMin: '/assets/imagesMin/Basic_drums.jpg',
@@ -26,7 +24,6 @@ var products = [
         numReviews: 8,
     },
     {
-        _id: '3',
         name: 'Epiphone Flying V 2020',
         image: '/assets/images/Epiphone_Flying_V_2020.jpg',
         imageMin: '/assets/imagesMin/Epiphone_Flying_V_2020.jpg',
@@ -39,7 +36,6 @@ var products = [
         numReviews: 12,
     },
     {
-        _id: '4',
         name: 'EVER PLAY EV616',
         image: '/assets/images/EVER_PLAY_EV616.jpg',
         imageMin: '/assets/imagesMin/EVER_PLAY_EV616.jpg',
@@ -52,7 +48,6 @@ var products = [
         numReviews: 12,
     },
     {
-        _id: '5',
         name: 'GearPro CVT',
         image: '/assets/images/GearPro_CVT.jpg',
         imageMin: '/assets/imagesMin/GearPro_CVT.jpg',
@@ -65,7 +60,6 @@ var products = [
         numReviews: 10,
     },
     {
-        _id: '6',
         name: 'Pearl Roadshow',
         image: '/assets/images/Pearl_Roadshow.jpg',
         imageMin: '/assets/imagesMin/Pearl_Roadshow.jpg',
@@ -77,7 +71,6 @@ var products = [
         rating: 4.5,
         numReviews: 8,
     }, {
-        _id: '7',
         name: 'Rode NT1',
         image: '/assets/images/Rode_NT1.jpg',
         imageMin: '/assets/imagesMin/Rode_NT1.jpg',
@@ -89,7 +82,6 @@ var products = [
         rating: 2,
         numReviews: 1,
     }, {
-        _id: '8',
         name: 'Rolan VAD506',
         image: '/assets/images/Rolan_VAD506.jpg',
         imageMin: '/assets/imagesMin/Rolan_VAD506.jpg',
@@ -101,7 +93,6 @@ var products = [
         rating: 5,
         numReviews: 17,
     }, {
-        _id: '9',
         name: 'Vilac PSS for children',
         image: '/assets/images/Vilac_for_children.jpg',
         imageMin: '/assets/imagesMin/Vilac_for_children.jpg',
@@ -113,7 +104,6 @@ var products = [
         rating: 4.5,
         numReviews: 3,
     }, {
-        _id: '10',
         name: 'Yamaha C40',
         image: '/assets/images/Yamaha_C40.jpg',
         imageMin: '/assets/imagesMin/Yamaha_C40.jpg',
@@ -125,7 +115,6 @@ var products = [
         rating: 4.5,
         numReviews: 6,
     }, {
-        _id: '11',
         name: 'Yamaha GB1K PE',
         image: '/assets/images/Yamaha_GB1K_PE.jpg',
         imageMin: '/assets/imagesMin/Yamaha_GB1K_PE.jpg',
