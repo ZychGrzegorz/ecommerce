@@ -5,6 +5,7 @@ import colors from 'colors'
 import connectDB from './config/config.js'
 import productRoutes from './routes/productRoutes.js'
 import {notFound, errorHandler} from './middleware/errorMidleware.js'
+
 const col=colors
 
 dotenv.config()
