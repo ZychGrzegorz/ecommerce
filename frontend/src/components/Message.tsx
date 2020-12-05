@@ -2,7 +2,7 @@ import React from 'react'
 import { Alert } from 'react-bootstrap'
 
 type MessageProps = {
-  variant: string
+  variant?: string
 }
 
 const Message: React.FC<MessageProps> = ({ variant, children }) => {

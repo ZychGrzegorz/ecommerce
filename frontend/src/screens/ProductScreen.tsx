@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, RouteComponentProps } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap'
+import { Row, Col, Image, ListGroup, Card, Button, Form } from 'react-bootstrap'
 import Rating from '../components/Rating'
 import { listProductDetails } from '../store/actions/productActions'
 import { RootState } from '../store/store'
@@ -18,16 +18,21 @@ type ProductList = {
 }
 interface MatchProps extends RouteComponentProps<MatchParams> {}
 
-const ProductScreen = ({ match }: MatchProps) => {
+const ProductScreen = ({ history, match }: MatchProps) => {
+  const [qty, setQty] = useState<number | string>(1)
   const dispatch = useDispatch()
-  const productDetails = useSelector((state: RootState) => state.productDetails)
+  const productDetails: ProductDetails = useSelector(
+    (state: RootState) => state.productDetails
+  )
   const { loading, error, product } = productDetails
 
   useEffect((): void => {
     dispatch(listProductDetails(match.params.id))
   }, [dispatch, match])
 
-  console.log(product)
+  const addToCartHandler = () => {
+    history.push(`/cart/${match.params.id}?qty=${qty}`)
+  }
   return (
     <>
       <Link className='btn btn-light my-3' to='/'>
@@ -92,8 +97,31 @@ const ProductScreen = ({ match }: MatchProps) => {
                         </Col>
                       </Row>
                     </ListGroup.Item>
+                    {product.countInStock > 0 && (
+                      <ListGroup.Item>
+                        <Row>
+                          <Col>Qty</Col>
+                          <Col>
+                            <Form.Control
+                              as='select'
+                              value={qty}
+                              onChange={(e) => setQty(e.target.value)}
+                            >
+                              {[...Array(product.countInStock).keys()].map(
+                                (x) => (
+                                  <option key={x + 1} value={x + 1}>
+                                    {x + 1}
+                                  </option>
+                                )
+                              )}
+                            </Form.Control>
+                          </Col>
+                        </Row>
+                      </ListGroup.Item>
+                    )}
                     <ListGroup.Item>
                       <Button
+                        onClick={addToCartHandler}
                         className='btn-block'
                         type='button'
                         disabled={product && product.countInStock === 0}

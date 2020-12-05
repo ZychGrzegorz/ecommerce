@@ -18,9 +18,15 @@ type ProductState ={
     error: string
 }
 
+type ProductDetails={
+    product: Product|null,
+    loading: boolean,
+    error: string
+}
 
 type ProductListRequest={
     type: typeof import ('./store/constants').PRODUCT_LIST_REQUEST
+    payload?: string 
     }
 
 type ProductListSucces={
@@ -36,6 +42,7 @@ type ProductAction = | ProductListRequest|ProductListSucces|ProductListFail
 
 type ProductDetailsRequest={
     type: typeof import ('./store/constants').PRODUCT_DETAILS_REQUEST
+    payload?: string 
     }
 
 type ProductDetailsSucces={
@@ -48,3 +55,23 @@ type ProductDetailsFail={
 }
 
 type ProductDetailsAction = | ProductDetailsRequest|ProductDetailsSucces|ProductDetailsFail
+
+type CartItem={
+    product: string,
+    name: string,
+    image: string,
+    price: number,
+    countInStock: number,
+    qty: number,
+}
+type CartAddItem={
+    type: typeof import ('./store/constants/cartConstants').CART_ADD_ITEM
+    payload: CartItem
+}
+type CartRemoveItem={
+    type: typeof import ('./store/constants/cartConstants').CART_REMOVE_ITEM
+    payload: string
+}
+
+
+type CartActions = | CartAddItem | CartRemoveItem

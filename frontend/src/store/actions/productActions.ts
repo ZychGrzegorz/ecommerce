@@ -1,7 +1,8 @@
-import {ThunkAction}from 'redux-thunk'
+import {ThunkAction} from 'redux-thunk'
 import axios from 'axios'
 import {RootState} from '../store'
-import {PRODUCT_LIST_REQUEST,PRODUCT_LIST_SUCCESS,PRODUCT_LIST_FAIL, PRODUCT_DETAILS_REQUEST,PRODUCT_DETAILS_SUCCESS,PRODUCT_DETAILS_FAIL} from '../constants'
+import {PRODUCT_LIST_REQUEST,PRODUCT_LIST_SUCCESS,PRODUCT_LIST_FAIL, PRODUCT_DETAILS_REQUEST,PRODUCT_DETAILS_SUCCESS,PRODUCT_DETAILS_FAIL} from '../constants/constants'
+
 
 export const listProducts = (): ThunkAction<void, RootState,null,ProductAction> => {
     return async dispatch => {
