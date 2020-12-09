@@ -40,7 +40,7 @@ const initialProductDetails ={
  type ProductDetailsState={
     loading: boolean,
     error: string
-    //  data?: Product[] | string,
+    data?: Product[] | null,
  }
 
 export const productDetailsReducer = (state: ProductDetailsState = initialProductDetails, action: ProductDetailsAction)=>{
@@ -53,11 +53,13 @@ export const productDetailsReducer = (state: ProductDetailsState = initialProduc
             }
         case PRODUCT_DETAILS_SUCCESS:
             return {
+                ...state,
                 loading: false, 
                 product: action.payload
             }
         case PRODUCT_DETAILS_FAIL:
             return {
+                ...state,
                 loading: false, 
                 error: action.payload
             }

@@ -24,6 +24,7 @@ type ProductDetails={
     error: string
 }
 
+
 type ProductListRequest={
     type: typeof import ('./store/constants').PRODUCT_LIST_REQUEST
     payload?: string 
@@ -75,3 +76,26 @@ type CartRemoveItem={
 
 
 type CartActions = | CartAddItem | CartRemoveItem
+
+
+
+type User = any
+
+type UserLoginRequest={
+    type: typeof import ('../constants/userConstants').USER_LOGIN_REQUEST
+    payload?: string
+}
+type UserLoginSuccess={
+    type: typeof import ('../constants/userConstants').USER_LOGIN_SUCCESS
+    payload:  any
+}
+type UserLoginFail={
+    type: typeof import ('../constants/userConstants').USER_LOGIN_FAIL
+    payload: string
+}
+type UserLogout={
+    type: typeof import ('../constants/userConstants').USER_LOGOUT
+    payload: any
+}
+
+type UserAction= | UserLoginRequest | UserLoginSuccess | UserLoginFail | UserLogout

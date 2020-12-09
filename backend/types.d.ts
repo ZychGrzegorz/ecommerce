@@ -16,5 +16,7 @@ interface User {
     name: string,
     email: string,
     password: string,
+    _id?: string,
     isAdmin?: boolean,
+    token?:string|null
 }

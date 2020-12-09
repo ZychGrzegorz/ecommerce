@@ -1,9 +1,10 @@
-import express, { NextFunction } from 'express'
+import express, { Application, NextFunction } from 'express'
 import dotenv from 'dotenv'
 import {Request, Response} from 'express'
 import colors from 'colors'
 import connectDB from './config/config.js'
 import productRoutes from './routes/productRoutes.js'
+import userRoutes from './routes/userRoutes.js'
 import {notFound, errorHandler} from './middleware/errorMidleware.js'
 
 const col=colors
@@ -11,13 +12,16 @@ const col=colors
 dotenv.config()
 connectDB()
 
-const app = express();
+const app: Application = express();
+
+app.use(express.json())
 
 app.get('/',(req:Request,res:Response)=>{
     res.send('API is running...')
 })
 
 app.use('/api/products', productRoutes)
+app.use('/api/users', userRoutes)
 
 app.use(notFound)
 
