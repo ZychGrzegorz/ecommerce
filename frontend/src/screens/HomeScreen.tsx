@@ -21,7 +21,6 @@ const HomeScreen = () => {
   useEffect(() => {
     dispatch(listProducts())
   }, [dispatch])
-  console.log('products', products)
 
   return (
     <div>

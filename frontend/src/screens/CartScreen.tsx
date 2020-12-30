@@ -107,7 +107,9 @@ const CartScreen = ({ match, location, history }: MatchProps) => {
                 className='btn-block'
                 disabled={cartItems.length === 0}
                 onClick={checkoutHandler}
-              ></Button>
+              >
+                PROCEED TO CHECKOUT
+              </Button>
             </ListGroup.Item>
           </ListGroup>
         </Card>

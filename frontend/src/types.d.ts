@@ -65,6 +65,7 @@ type CartItem={
     countInStock: number,
     qty: number,
 }
+
 type CartAddItem={
     type: typeof import ('./store/constants/cartConstants').CART_ADD_ITEM
     payload: CartItem
@@ -99,3 +100,51 @@ type UserLogout={
 }
 
 type UserAction= | UserLoginRequest | UserLoginSuccess | UserLoginFail | UserLogout
+
+
+
+type UserRegisterRequest={
+    type: typeof import ('../constants/userConstants').USER_REGISTER_REQUEST
+    payload?: string
+}
+type UserRegisterSuccess={
+    type: typeof import ('../constants/userConstants').USER_REGISTER_SUCCESS
+    payload:  any
+}
+type UserRegisterFail={
+    type: typeof import ('../constants/userConstants').USER_REGISTER_FAIL
+    payload: string
+}
+
+
+type UserRegisterAction = | UserRegisterRequest | UserRegisterSuccess | UserRegisterFail
+
+type UserDetailsRequest={
+    type: typeof import ('../constants/userConstants').USER_DETAILS_REQUEST
+    payload?: string
+}
+type UserDetailsSuccess={
+    type: typeof import ('../constants/userConstants').USER_DETAILS_SUCCESS
+    payload:  any
+}
+type UserDetailsFail={
+    type: typeof import ('../constants/userConstants').USER_DETAILS_FAIL
+    payload: string
+}
+
+type UserDetailsAction = | UserDetailsRequest | UserDetailsSuccess | UserDetailsFail
+
+type UserUpdateStateRequest={
+    type: typeof import ('../constants/userConstants').USER_UPDATE_STATE_REQUEST
+    payload?: string
+}
+type UserUpdateStateSuccess={
+    type: typeof import ('../constants/userConstants').USER_UPDATE_STATE_SUCCESS
+    payload:  any
+}
+type UserUpdateStateFail={
+    type: typeof import ('../constants/userConstants').USER_UPDATE_STATE_FAIL
+    payload: string
+}
+
+UserUpdateStateAction= | UserUpdateStateRequest | UserUpdateStateSuccess | UserUpdateStateFail

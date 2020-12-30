@@ -18,3 +18,7 @@ h3 {
 .rating span{
     margin: 0.1rem
 }
+
+.form-control{
+    width: auto
+}
