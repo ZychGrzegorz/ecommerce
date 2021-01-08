@@ -11,11 +11,7 @@ import Loader from '../components/Loader'
 interface MatchParams {
   id: string
 }
-type ProductList = {
-  loading: boolean
-  error: string
-  products: Product[]
-}
+
 interface MatchProps extends RouteComponentProps<MatchParams> {}
 
 const ProductScreen = ({ history, match }: MatchProps) => {

@@ -5,6 +5,7 @@ import colors from 'colors'
 import connectDB from './config/config.js'
 import productRoutes from './routes/productRoutes.js'
 import userRoutes from './routes/userRoutes.js'
+import orderRoutes from './routes/orderRoutes.js'
 import {notFound, errorHandler} from './middleware/errorMidleware.js'
 
 const col=colors
@@ -22,6 +23,7 @@ app.get('/',(req:Request,res:Response)=>{
 
 app.use('/api/products', productRoutes)
 app.use('/api/users', userRoutes)
+app.use('/api/orders', orderRoutes)
 
 app.use(notFound)
 

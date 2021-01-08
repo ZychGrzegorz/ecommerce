@@ -75,8 +75,17 @@ type CartRemoveItem={
     payload: string
 }
 
+type CartSaveShippingAddress={
+    type: typeof import ('./store/constants/cartConstants').CART_SAVE_SHIPPING_ADDRESS
+    payload: string
+}
+type CartSavePaymentMethod={
+    type: typeof import ('./store/constants/cartConstants').CART_SAVE_PAYMENT_METHOD
+    payload: string
+}
 
-type CartActions = | CartAddItem | CartRemoveItem
+
+type CartActions = | CartAddItem | CartRemoveItem | CartSaveShippingAddress | CartSavePaymentMethod
 
 
 
@@ -99,7 +108,7 @@ type UserLogout={
     payload: any
 }
 
-type UserAction= | UserLoginRequest | UserLoginSuccess | UserLoginFail | UserLogout
+type UserAction = | UserLoginRequest | UserLoginSuccess | UserLoginFail | UserLogout
 
 
 
@@ -147,4 +156,45 @@ type UserUpdateStateFail={
     payload: string
 }
 
-UserUpdateStateAction= | UserUpdateStateRequest | UserUpdateStateSuccess | UserUpdateStateFail
+type UserUpdateStateAction = | UserUpdateStateRequest | UserUpdateStateSuccess | UserUpdateStateFail
+
+type shippingAddressType={ 
+    address: string, 
+    city: string, 
+    postalCode:string,
+    country: string
+}
+type CartState = {
+    cartItems: CartItem[]
+    shippingAddress: shippingAddressType
+    paymentMethod: string
+    itemsPrice: number|null|string
+    shippingPrice: number|null|string
+    taxPrice: number|null|string
+    totalPrice: number|null|string
+  }
+
+  type OrderCreateRequest={
+    type: typeof import ('../constants/orderConstants').ORDER_CREATE_REQUEST
+    payload?: string
+}
+type OrderCreateSuccess={
+    type: typeof import ('../constants/orderConstants').ORDER_CREATE_SUCCESS
+    payload:  any
+}
+type OrderCreateFail={
+    type: typeof import ('../constants/orderConstants').ORDER_CREATE_FAIL
+    payload: string
+}
+
+type OrderCreateStateAction = | OrderCreateRequest | OrderCreateSuccess | OrderCreateFail
+
+type OrderType={
+    orderItems: CartItem[],
+    shippingAddress: shippingAddressType,
+    paymentMethod: string,
+    itemsPrice: number,
+    shippingPrice: number,
+    taxPrice:number,
+    totalPrice: number,
+}

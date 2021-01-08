@@ -4,6 +4,7 @@ import colors from 'colors';
 import connectDB from './config/config.js';
 import productRoutes from './routes/productRoutes.js';
 import userRoutes from './routes/userRoutes.js';
+import orderRoutes from './routes/orderRoutes.js';
 import { notFound, errorHandler } from './middleware/errorMidleware.js';
 var col = colors;
 dotenv.config();
@@ -15,6 +16,7 @@ app.get('/', function (req, res) {
 });
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/orders', orderRoutes);
 app.use(notFound);
 app.use(errorHandler);
 var PORT = process.env.PORT || 5000;
