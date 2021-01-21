@@ -11,14 +11,10 @@ import {Request, Response} from 'express'
 
 const authUser = asyncHandler(async (req:Request, res:Response)=>{
     const {email,password}=req.body
-    
-
-        console.log(email, password)
-    const user: any = await User.findOne({email})
-    
-  
-    if (user && (await user.matchPassword(password))) {
        
+    const user: any = await User.findOne({email})
+      
+    if (user && (await user.matchPassword(password))) {
         (res as any).json({
             _id: user._id,
             name: user.name,
@@ -26,9 +22,7 @@ const authUser = asyncHandler(async (req:Request, res:Response)=>{
             isAdmin: user.isAdmin,
             token: generateToken(user._id)
     })
-  
-
-        } else {
+          } else {
             res.status(401)
             throw new Error('Invalid email or password')
         }

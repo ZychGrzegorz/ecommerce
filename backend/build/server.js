@@ -17,6 +17,7 @@ app.get('/', function (req, res) {
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
+app.get('/api/config/paypal', function (req, res) { return res.send(process.env.PAYPAL_CLIENT_ID); });
 app.use(notFound);
 app.use(errorHandler);
 var PORT = process.env.PORT || 5000;

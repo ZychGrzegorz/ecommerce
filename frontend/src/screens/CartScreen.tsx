@@ -15,7 +15,7 @@ const CartScreen = ({ match, location, history }: MatchProps) => {
   const qty = location.search ? Number(location.search.split('=')[1]) : 1
   const dispatch = useDispatch()
 
-  const cart = useSelector((state: RootState) => state.cart)
+  const cart: CartState = useSelector((state: RootState) => state.cart)
   const { cartItems } = cart
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const CartScreen = ({ match, location, history }: MatchProps) => {
           </Message>
         ) : (
           <ListGroup variant='flush'>
-            {cartItems.map((item) => (
+            {cartItems.map((item: CartItem) => (
               <ListGroup.Item key={item.product}>
                 <Row>
                   <Col md={2}>

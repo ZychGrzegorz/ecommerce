@@ -22,3 +22,11 @@ h3 {
 .form-control{
     width: auto
 }
+.active.dropdown-item{
+    color:inherit;
+    background-color: inherit;
+}
+.active.dropdown-item:hover{
+    color:white;
+    background-color: black;
+}

@@ -15,9 +15,11 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-async-handler": "^1.1.4",
+    "history": "^5.0.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.9",
-    "node": "^14.13.1"
+    "node": "^14.13.1",
+    "react-router": "^5.2.0"
   },
   "devDependencies": {
     "concurrently": "^5.3.0",

@@ -4,8 +4,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap'
 import { RootState } from '../store/store'
 import { logout } from '../store/actions/userActions'
-
-// type HeaderProps = {}
+import { RouteComponentProps } from 'react-router-dom'
 type UserLoginInterface = {
   loading: boolean
   userInfo: {
@@ -40,12 +39,14 @@ const Header: React.FC = () => {
               </LinkContainer>
               {userInfo ? (
                 <NavDropdown title={userInfo.name} id='username'>
-                  <LinkContainer to='profile'>
+                  <LinkContainer to='/profile'>
                     <NavDropdown.Item>Profile</NavDropdown.Item>
                   </LinkContainer>
-                  <NavDropdown.Item onClick={logoutHandler}>
-                    Logout
-                  </NavDropdown.Item>
+                  <LinkContainer to='/'>
+                    <NavDropdown.Item onClick={logoutHandler}>
+                      Logout
+                    </NavDropdown.Item>
+                  </LinkContainer>
                 </NavDropdown>
               ) : (
                 <LinkContainer to='/login'>

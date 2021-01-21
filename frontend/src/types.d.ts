@@ -57,6 +57,22 @@ type ProductDetailsFail={
 
 type ProductDetailsAction = | ProductDetailsRequest|ProductDetailsSucces|ProductDetailsFail
 
+type UserUpdateProfileRequest={
+    type: typeof import ('./store/constants/userConstants').USER_UPDATE_PROFILE_REQUEST
+    payload?: string 
+    }
+
+type UserUpdateProfileSucces={
+    type: typeof import ('./store/constants/userConstants').USER_UPDATE_PROFILE_SUCCESS
+    payload:  Product[]
+}
+type UserUpdateProfileFail={
+    type: typeof import ('./store/constants/userConstants').USER_UPDATE_PROFILE_FAIL
+    payload: string
+}
+type UserUpdateProfileAction = | UserUpdateProfileRequest  | UserUpdateProfileSucces |UserUpdateProfileFail
+
+
 type CartItem={
     product: string,
     name: string,
@@ -84,12 +100,17 @@ type CartSavePaymentMethod={
     payload: string
 }
 
-
 type CartActions = | CartAddItem | CartRemoveItem | CartSaveShippingAddress | CartSavePaymentMethod
 
-
-
-type User = any
+type User = {
+    email: string,
+    id: string,
+    name: string,
+    password: string,
+    isAdmin?: boolean,
+    token?: string,
+   
+}
 
 type UserLoginRequest={
     type: typeof import ('../constants/userConstants').USER_LOGIN_REQUEST
@@ -172,9 +193,10 @@ type CartState = {
     shippingPrice: number|null|string
     taxPrice: number|null|string
     totalPrice: number|null|string
+    
   }
 
-  type OrderCreateRequest={
+type OrderCreateRequest={
     type: typeof import ('../constants/orderConstants').ORDER_CREATE_REQUEST
     payload?: string
 }
@@ -198,3 +220,81 @@ type OrderType={
     taxPrice:number,
     totalPrice: number,
 }
+
+type OrderDetailsStateAction = | OrderDetailsRequest | OrderDetailsSuccess | OrderDetailsFails
+
+type OrderDetailsRequest={
+    type: typeof import ('../constants/orderConstants').ORDER_DETAILS_REQUEST
+    payload?: string
+}
+type OrderDetailsSuccess={
+    type: typeof import ('../constants/orderConstants').ORDER_DETAILS_SUCCESS
+    payload:  any
+}
+type OrderDetailsFail={
+    type: typeof import ('../constants/orderConstants').ORDER_DETAILS_FAIL
+    payload: string
+}
+
+
+type OrderPayStateAction = | OrderPayRequest | OrderPaySuccess | OrderPayFails | OrderPayReset
+
+type OrderPayRequest={
+    type: typeof import ('../constants/orderConstants').ORDER_PAY_REQUEST
+    payload?: string
+}
+type OrderPaySuccess={
+    type: typeof import ('../constants/orderConstants').ORDER_PAY_SUCCESS
+    payload:  any
+}
+type OrderPayFail={
+    type: typeof import ('../constants/orderConstants').ORDER_PAY_FAIL
+    payload: string
+}
+type OrderPayReset={
+    type: typeof import ('../constants/orderConstants').ORDER_PAY_RESET
+    payload: string
+}
+
+type OrderListMyAction = |OrderListMyRequest|OrderListMySuccess |OrderListMyFail
+
+type OrderListMyRequest={
+    type: typeof import ('../constants/orderConstants').ORDER_LIST_MY_REQUEST
+    payload?: string
+}
+type OrderListMySuccess={
+    type: typeof import ('../constants/orderConstants').ORDER_LIST_MY_SUCCESS
+    payload:  any
+}
+type OrderListMyFail={
+    type: typeof import ('../constants/orderConstants').ORDER_LIST_MY_FAIL
+    payload: string
+}
+
+type orderDetailsType = {
+    order: CartState & {
+      _id: string
+      orderItems: CartItem[]
+      user: { email: string; name: string }
+      isPaid: boolean
+      paidAt: Date
+      isDelivered: boolean
+      deliveredAt: Date
+      totalPrice: number
+      itemsprice: any,
+
+    }
+    loading?: boolean
+    error?: string
+  }
+
+type Order = CartState & {
+    _id: string
+    orderItems: CartItem[],
+    user: { email: string; name: string }
+    isPaid: boolean
+    paidAt: string
+    isDelivered: boolean
+    deliveredAt: string
+    createdAt: string
+    totalPrice: number}

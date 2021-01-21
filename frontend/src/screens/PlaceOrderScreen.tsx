@@ -6,7 +6,7 @@ import Message from '../components/Message'
 import CheckoutSteps from '../components/CheckoutSteps'
 import { saveShippingAddress } from '../store/actions/cartActions'
 import { RootState } from '../store/store'
-import { createOrder } from '../store/actions/OrderActions'
+import { createOrder } from '../store/actions/orderActions'
 
 const PlaceOrderScreen = ({ history }: RouteComponentProps) => {
   const dispatch = useDispatch()
