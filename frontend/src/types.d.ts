@@ -104,9 +104,10 @@ type CartActions = | CartAddItem | CartRemoveItem | CartSaveShippingAddress | Ca
 
 type User = {
     email: string,
-    id: string,
     name: string,
-    password: string,
+    id?: string,
+    _id?: string,
+    password?: string,
     isAdmin?: boolean,
     token?: string,
    
@@ -298,3 +299,58 @@ type Order = CartState & {
     deliveredAt: string
     createdAt: string
     totalPrice: number}
+
+    
+type UserListAction = | UserListStateRequest | UserListStateSuccess | UserListStateFail | UserListStateReset
+
+type UserListStateRequest={
+    type: typeof import ('../constants/userConstants').USER_LIST_REQUEST
+    payload?: string
+}
+type UserListStateSuccess={
+    type: typeof import ('../constants/userConstants').USER_LIST_SUCCESS
+    payload:  any
+}
+type UserListStateFail={
+    type: typeof import ('../constants/userConstants').USER_LIST_FAIL
+    payload: string
+}
+type UserListStateReset={
+    type: typeof import ('../constants/userConstants').USER_LIST_RESET
+    payload: string
+}
+
+type UserDeleteAction = | UserDeleteRequest | UserDeleteSuccess | UserDeleteFail 
+
+type UserDeleteRequest={
+    type: typeof import ('../constants/userConstants').USER_DELETE_REQUEST
+    payload?: string
+}
+type UserDeleteSuccess={
+    type: typeof import ('../constants/userConstants').USER_DELETE_SUCCESS
+    payload:  any
+}
+type UserDeleteFail={
+    type: typeof import ('../constants/userConstants').USER_DELETE_FAIL
+    payload: string
+}
+
+type UserUpdateAction = | UserUpdateRequest | UserUpdateSuccess | UserUpdateFail | UserUpdateReset
+
+type UserUpdateRequest={
+    type: typeof import ('../constants/userConstants').USER_UPDATE_REQUEST
+    payload?: string
+}
+type UserUpdateSuccess={
+    type: typeof import ('../constants/userConstants').USER_UPDATE_SUCCESS
+    payload:  any
+}
+type UserUpdateFail={
+    type: typeof import ('../constants/userConstants').USER_UPDATE_FAIL
+    payload: string
+}
+type UserUpdateReset={
+    type: typeof import ('../constants/userConstants').USER_UPDATE_RESET
+    payload: string
+}
+

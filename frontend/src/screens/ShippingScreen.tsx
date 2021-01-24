@@ -8,7 +8,7 @@ import { saveShippingAddress } from '../store/actions/cartActions'
 import { RootState } from '../store/store'
 
 const ShippingScreen = ({ history }: RouteComponentProps) => {
-  const cart = useSelector((state: RootState) => state.cart)
+  const cart: any = useSelector((state: RootState) => state.cart)
   const { shippingAddress } = cart
   const [address, setAddress] = useState(shippingAddress.address)
   const [city, setCity] = useState(shippingAddress.city)
