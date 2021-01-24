@@ -2,18 +2,12 @@ import { USER_DETAILS_FAIL, USER_DETAILS_REQUEST, USER_DETAILS_RESET, USER_DETAI
 
 
 type UserLoginState={
-    userInfo: User,
+    userInfo: User | null,
     loading?: boolean,
     error?: string
 }
 const initialState = {
-    userInfo: {
-        _id: '',
-        isAdmin: false,
-        name: '',
-        email: '',
-        token: '',
-        },
+    userInfo: null,
     loading: false,
     error: ''
 }
