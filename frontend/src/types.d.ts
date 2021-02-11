@@ -357,15 +357,37 @@ type UserUpdateReset={
 
 type ProductDeleteAction = | ProductDeleteRequest | ProductDeleteSuccess | ProductDeleteFail 
 
-type UseProducteteRequest={
+type ProductDeleteRequest={
     type: typeof import ('../constants/constants').PRODUCT_DELETE_REQUEST
     payload?: string
 }
-type UseProducteteSuccess={
+type ProductDeleteSuccess={
     type: typeof import ('../constants/constants').PRODUCT_DELETE_SUCCESS
     payload:  any
 }
 type ProductDeleteFail={
     type: typeof import ('../constants/constants').PRODUCT_DELETE_FAIL
+    payload: string
+}
+
+
+
+
+type ProductCreateAction = | ProductCreateRequest | ProductCreateSuccess | ProductCreateFail | ProductCreateReset
+
+type ProductCreateRequest={
+    type: typeof import ('../constants/constants').PRODUCT_CREATE_REQUEST
+    payload?: string
+}
+type ProductCreateSuccess={
+    type: typeof import ('../constants/constants').PRODUCT_CREATE_SUCCESS
+    payload:  any
+}
+type ProductCreateFail={
+    type: typeof import ('../constants/constants').PRODUCT_CREATE_FAIL
+    payload: string
+}
+type ProductCreateReset={
+    type: typeof import ('../constants/constants').PRODUCT_CREATE_RESET
     payload: string
 }
