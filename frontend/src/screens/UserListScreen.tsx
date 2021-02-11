@@ -81,7 +81,6 @@ const UserListScreen = ({ history }: RouteComponentProps) => {
                   >
                     <i className='fas fa-trash'></i>
                   </Button>
-                  )
                 </td>
               </tr>
             ))}
