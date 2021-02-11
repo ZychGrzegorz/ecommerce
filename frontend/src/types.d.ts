@@ -1,15 +1,15 @@
 interface Product {
     _id: string,
     name: string,
-    image: string,
-    imageMin: string,
+    image?: string,
+    imageMin?: string,
     description:string,
     brand: string,
     category: string,
     price: number,
-    countInStock: number,
-    rating: number,
-    numReviews: number,
+    countInStock?: number,
+    rating?: number,
+    numReviews?: number,
 }
 
 type ProductState ={
@@ -354,3 +354,18 @@ type UserUpdateReset={
     payload: string
 }
 
+
+type ProductDeleteAction = | ProductDeleteRequest | ProductDeleteSuccess | ProductDeleteFail 
+
+type UseProducteteRequest={
+    type: typeof import ('../constants/constants').PRODUCT_DELETE_REQUEST
+    payload?: string
+}
+type UseProducteteSuccess={
+    type: typeof import ('../constants/constants').PRODUCT_DELETE_SUCCESS
+    payload:  any
+}
+type ProductDeleteFail={
+    type: typeof import ('../constants/constants').PRODUCT_DELETE_FAIL
+    payload: string
+}
