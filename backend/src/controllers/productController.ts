@@ -44,15 +44,10 @@ const deleteProduct = asyncHandler(async (req: Request, res: Response) => {
     }
 })
 
-interface RequestExt extends Request {
-    user: {
-        _id: string
-    }
-}
 //@description   Create a product
 //@route         POST /api/products
 //@access        Private/Admin
-const createProduct = asyncHandler(async (req: RequestExt, res: Response) => {
+const createProduct = asyncHandler(async (req: Request, res: Response) => {
     const product = new Product({
         name: 'Sample name',
         price: 0,
@@ -72,7 +67,7 @@ const createProduct = asyncHandler(async (req: RequestExt, res: Response) => {
 //@description   Update a product
 //@route         PUT /api/products/:id
 //@access        Private/Admin
-const updateProduct = asyncHandler(async (req: RequestExt, res: Response) => {
+const updateProduct = asyncHandler(async (req: Request, res: Response) => {
     const {
         name,
         price,
@@ -85,6 +80,7 @@ const updateProduct = asyncHandler(async (req: RequestExt, res: Response) => {
     } = req.body
 
     const product: any = await Product.findById(req.params.id)
+    
     if (product) {
         product.name=name
         product.price=price
@@ -94,8 +90,11 @@ const updateProduct = asyncHandler(async (req: RequestExt, res: Response) => {
         product.brand=brand
         product.category=category
         product.countInStock=countInStock
+       
 
         const updatedProduct = await product.save()
+        
+
         res.json(updatedProduct)
     } else {
         res.status(404)

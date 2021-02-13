@@ -7,12 +7,8 @@ import {Request, Response} from 'express'
 //@route         Post /api/orders
 //@access        Private
 
-interface RequestExt extends Request{
-    user: {
-        _id: string
-    }
-}
-const addOrderItems = asyncHandler(async (req:RequestExt, res:Response)=>{
+
+const addOrderItems = asyncHandler(async (req:Request, res:Response)=>{
 const {orderItems, shippingAddress, paymentMethod, itemsPrice, taxPrice, shippingPrice, totalPrice} = req.body
 if(orderItems&&orderItems.length===0){
     res.status(400)
@@ -32,7 +28,7 @@ if(orderItems&&orderItems.length===0){
 //@route         GET /api/orders/:id
 //@access        Private
 
-const getOrderById = asyncHandler(async (req:RequestExt, res:Response)=>{
+const getOrderById = asyncHandler(async (req:Request, res:Response)=>{
     const order = await Order.findById(req.params.id).populate('user', 'name email')
 
     if(order){
@@ -49,7 +45,7 @@ const getOrderById = asyncHandler(async (req:RequestExt, res:Response)=>{
 
 
 
-const updateOrderToPaid = asyncHandler(async (req:RequestExt, res:Response)=>{
+const updateOrderToPaid = asyncHandler(async (req:Request, res:Response)=>{
    
     const order: any = await Order.findById(req.params.id)
     
@@ -76,7 +72,7 @@ const updateOrderToPaid = asyncHandler(async (req:RequestExt, res:Response)=>{
 //@access        Private
 
 
-const getMyOrders = asyncHandler(async (req:RequestExt, res:Response)=>{
+const getMyOrders = asyncHandler(async (req:Request, res:Response)=>{
 
         const orders: any = await Order.find({user: req.user._id})
   

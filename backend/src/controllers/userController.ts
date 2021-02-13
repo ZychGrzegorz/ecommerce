@@ -14,7 +14,7 @@ const authUser = asyncHandler(async (req:Request, res:Response)=>{
     const user: any = await User.findOne({email})
       
     if (user && (await user.matchPassword(password))) {
-        (res as any).json({
+        (res).json({
             _id: user._id,
             name: user.name,
             email: user.email,
@@ -65,13 +65,8 @@ const registerUser = asyncHandler(async (req:Request, res:Response)=>{
 //@route         GET /api/users/profiel
 //@access        Private - need to send a token
 
-interface RequestExt extends Request{
-    user: {
-        _id: string
-    }
-}
 
-const getUserProfile = asyncHandler(async (req:RequestExt, res:Response)=>{
+const getUserProfile = asyncHandler(async (req:Request, res:Response)=>{
     const user: any = await User.findById(req.user._id)
 
     if(user){
@@ -92,13 +87,7 @@ const getUserProfile = asyncHandler(async (req:RequestExt, res:Response)=>{
 //@route         PUT /api/users/profile
 //@access        Private
 
-interface RequestExt extends Request{
-    user: {
-        _id: string
-    }
-}
-
-const updateUserProfile = asyncHandler(async (req:RequestExt, res:Response)=>{
+const updateUserProfile = asyncHandler(async (req:Request, res:Response)=>{
     const user: any = await User.findById(req.user._id)
         
     if(user){
@@ -111,7 +100,7 @@ const updateUserProfile = asyncHandler(async (req:RequestExt, res:Response)=>{
 
        const updatedUser: any = await user.save()
        if(updatedUser){
-        (res as any).json({
+        (res).json({
             _id: updatedUser._id,
             name: updatedUser.name,
             email: updatedUser.email,
@@ -131,7 +120,7 @@ const updateUserProfile = asyncHandler(async (req:RequestExt, res:Response)=>{
 //@route         GET /api/users
 //@access        Private/Admin
 
-const getUsers = asyncHandler(async (req:RequestExt, res:Response)=>{
+const getUsers = asyncHandler(async (req:Request, res:Response)=>{
     const users: any = await User.find({})
     res.json(users)
     }
@@ -140,7 +129,7 @@ const getUsers = asyncHandler(async (req:RequestExt, res:Response)=>{
 //@route         DELETE /api/users
 //@access        Private/Admin
 
-const deleteUser = asyncHandler(async (req:RequestExt, res:Response)=>{
+const deleteUser = asyncHandler(async (req:Request, res:Response)=>{
     const user: any = await User.findById(req.params.id)
     if(user){
             await user.remove()
@@ -157,7 +146,7 @@ const deleteUser = asyncHandler(async (req:RequestExt, res:Response)=>{
 //@route         GET /api/users/:id
 //@access        Private/Admin
 
-const getUserById = asyncHandler(async (req:RequestExt, res:Response)=>{
+const getUserById = asyncHandler(async (req:Request, res:Response)=>{
     const user: any = await User.findById(req.params.id).select('-password')
     if(user){
         res.json(user)
@@ -172,13 +161,7 @@ const getUserById = asyncHandler(async (req:RequestExt, res:Response)=>{
 //@route         PUT /api/users/:id
 //@access        Private/Admin
 
-// interface RequestExt extends Request{
-//     user: {
-//         _id: string
-//     }
-// }
-
-const updateUser = asyncHandler(async (req:RequestExt, res:Response)=>{
+const updateUser = asyncHandler(async (req:Request, res:Response)=>{
     
     const user: any = await User.findById(req.params.id)
       
@@ -189,7 +172,7 @@ const updateUser = asyncHandler(async (req:RequestExt, res:Response)=>{
 
        const updatedUser: any = await user.save()
        if(updatedUser){
-        (res as any).json({
+        (res).json({
             _id: updatedUser._id,
             name: updatedUser.name,
             email: updatedUser.email,
