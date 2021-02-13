@@ -391,3 +391,24 @@ type ProductCreateReset={
     type: typeof import ('../constants/constants').PRODUCT_CREATE_RESET
     payload: string
 }
+
+
+
+type ProductUpdateAction = | ProductUpdateRequest | ProductUpdateSuccess | ProductUpdateFail | ProductUpdateReset
+
+type ProductUpdateRequest={
+    type: typeof import ('../constants/constants').PRODUCT_UPDATE_REQUEST
+    payload?: string
+}
+type ProductUpdateSuccess={
+    type: typeof import ('../constants/constants').PRODUCT_UPDATE_SUCCESS
+    payload:  any
+}
+type ProductUpdateFail={
+    type: typeof import ('../constants/constants').PRODUCT_UPDATE_FAIL
+    payload: string
+}
+type ProductUpdateReset={
+    type: typeof import ('../constants/constants').PRODUCT_UPDATE_RESET
+    payload: string
+}

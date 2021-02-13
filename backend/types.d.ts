@@ -1,15 +1,25 @@
+
+  declare namespace Express {
+    interface Request {
+      user: {
+        _id: string;
+      };
+    }
+  }
+
+
 interface Product {
-    _id?: string,
-    name: string,
-    image: string,
-    imageMin: string,
-    description:string,
-    brand: string,
-    category: string,
-    price: number,
-    countInStock: number,
-    rating: number,
-    numReviews: number,
+  name: string,
+  image: string,
+  imageMin: string,
+  description:string,
+  brand: string,
+  category: string,
+  price: number,
+  countInStock: number,
+  rating: number,
+  _id?: string,
+    numReviews?: number,
 }
 
 interface User {

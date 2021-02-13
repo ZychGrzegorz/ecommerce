@@ -1,12 +1,17 @@
+import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import { Link, RouteComponentProps } from 'react-router-dom'
-import { Form, Button, FormCheck } from 'react-bootstrap'
+import { Form, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
-import { listProductDetails } from '../store/actions/productActions'
+import {
+  listProductDetails,
+  updateProduct,
+} from '../store/actions/productActions'
 import { RootState } from '../store/store'
+import { PRODUCT_UPDATE_RESET } from '../store/constants/constants'
 
 interface MatchParams {
   id: string
@@ -15,7 +20,7 @@ interface MatchProps extends RouteComponentProps<MatchParams> {}
 
 const ProductEditScreen = ({ match, history }: MatchProps) => {
   const productId = match.params.id
-  console.log(productId)
+
   const [name, setName] = useState<string>('')
   const [price, setPrice] = useState<number>(0)
   const [image, setImage] = useState<string>('')
@@ -24,6 +29,7 @@ const ProductEditScreen = ({ match, history }: MatchProps) => {
   const [category, setCategory] = useState<string>('')
   const [countInStock, setCountInStock] = useState<number>(0)
   const [description, setDescription] = useState<string>('')
+  const [uploading, setUploading] = useState<boolean>(false)
 
   const dispatch = useDispatch()
 
@@ -35,27 +41,74 @@ const ProductEditScreen = ({ match, history }: MatchProps) => {
 
   const productDetails = useSelector((state: RootState) => state.productDetails)
   const { loading, error, product } = productDetails as productDetailsType
-  console.log('edit')
-  console.log(productDetails)
-  console.log(product)
+
+  const productUpdate = useSelector((state: RootState) => state.productUpdate)
+  const {
+    loading: loadingUpdate,
+    error: errorUpdate,
+    success: successUpdate,
+  } = productUpdate
+
   useEffect(() => {
-    if (!product || !product.name || product._id !== productId) {
-      dispatch(listProductDetails(productId))
+    if (successUpdate) {
+      dispatch({ type: PRODUCT_UPDATE_RESET })
+      history.push('/admin/productlist')
     } else {
-      setName(product.name)
-      setPrice(product.price)
-      setImage(product.image!)
-      setImageMin(product.imageMin!)
-      setBrand(product.brand)
-      setCategory(product.category)
-      setCountInStock(product.countInStock!)
-      setDescription(product.description)
+      if (!product || !product.name || product._id !== productId) {
+        dispatch(listProductDetails(productId))
+      } else {
+        setName(product.name)
+        setPrice(product.price)
+        setImage(product.image!)
+        setImageMin(product.imageMin!)
+        setBrand(product.brand)
+        setCategory(product.category)
+        setCountInStock(product.countInStock!)
+        setDescription(product.description)
+      }
     }
-  }, [dispatch, history, productId, product])
+  }, [dispatch, history, productId, product, successUpdate])
+
+  const uploadFileHandler = async (e: any, type: string) => {
+    const file: File = e.target.files[0]
+    const formData = new FormData()
+    formData.append('image', file)
+    setUploading(true)
+
+    try {
+      const config: any = {
+        header: {
+          'Content-Type': 'multipart/form-data',
+        },
+      }
+      const { data } = await axios.post('/api/upload', formData, config)
+      if (type === 'normal') {
+        setImage(data)
+      } else if (type === 'min') {
+        setImageMin(data)
+      }
+      setUploading(false)
+    } catch (error) {
+      console.error(error)
+      setUploading(false)
+    }
+  }
 
   const submitHandler = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault()
-    //update product
+    dispatch(
+      updateProduct({
+        _id: productId,
+        name,
+        price,
+        brand,
+        category,
+        description,
+        countInStock,
+        image,
+        imageMin,
+      })
+    )
   }
   return (
     <>
@@ -64,6 +117,8 @@ const ProductEditScreen = ({ match, history }: MatchProps) => {
       </Link>
       <FormContainer>
         <h1>Edit Product</h1>
+        {loadingUpdate && <Loader />}
+        {errorUpdate && <Message variant='danger'>{errorUpdate}</Message>}
 
         {loading ? (
           <Loader />
@@ -99,6 +154,13 @@ const ProductEditScreen = ({ match, history }: MatchProps) => {
                 value={image}
                 onChange={(e) => setImage(e.target.value)}
               ></Form.Control>
+              <Form.File
+                id='image-file'
+                label='Choose File'
+                custom
+                onChange={(e: any) => uploadFileHandler(e, 'normal')}
+              ></Form.File>
+              {uploading && <Loader />}
             </Form.Group>
 
             <Form.Group controlId='imageMin'>
@@ -109,6 +171,13 @@ const ProductEditScreen = ({ match, history }: MatchProps) => {
                 value={imageMin}
                 onChange={(e) => setImageMin(e.target.value)}
               ></Form.Control>
+              <Form.File
+                id='image-file'
+                label='Choose File'
+                custom
+                onChange={(e: any) => uploadFileHandler(e, 'min')}
+              ></Form.File>
+              {uploading && <Loader />}
             </Form.Group>
 
             <Form.Group controlId='brand'>
