@@ -31,7 +31,7 @@ const protect = asyncHandler( async(req:RequestAuth,res:Response,next:NextFuncti
     }    
 })
 
-const admin = (req: any, res: Response, next: NextFunction)=>{
+const admin = (req: RequestAuth, res: Response, next: NextFunction)=>{
     if(req.user && req.user.isAdmin){
         next()
     }else{

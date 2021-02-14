@@ -238,6 +238,7 @@ type OrderDetailsFail={
 }
 
 
+
 type OrderPayStateAction = | OrderPayRequest | OrderPaySuccess | OrderPayFails | OrderPayReset
 
 type OrderPayRequest={
@@ -257,6 +258,25 @@ type OrderPayReset={
     payload: string
 }
 
+type OrderDeliverStateAction = | OrderDeliverRequest | OrderDeliverSuccess | OrderDeliverFails | OrderDeliverReset
+
+type OrderDeliverRequest={
+    type: typeof import ('../constants/orderConstants').ORDER_DELIVER_REQUEST
+    payload?: string
+}
+type OrderDeliverSuccess={
+    type: typeof import ('../constants/orderConstants').ORDER_DELIVER_SUCCESS
+    payload:  any
+}
+type OrderDeliverFail={
+    type: typeof import ('../constants/orderConstants').ORDER_DELIVER_FAIL
+    payload: string
+}
+type OrderDeliverReset={
+    type: typeof import ('../constants/orderConstants').ORDER_DELIVER_RESET
+    payload: string
+}
+
 type OrderListMyAction = |OrderListMyRequest|OrderListMySuccess |OrderListMyFail
 
 type OrderListMyRequest={
@@ -269,6 +289,21 @@ type OrderListMySuccess={
 }
 type OrderListMyFail={
     type: typeof import ('../constants/orderConstants').ORDER_LIST_MY_FAIL
+    payload: string
+}
+
+type OrderListAction = |OrderListRequest|OrderListSuccess |OrderListFail
+
+type OrderListRequest={
+    type: typeof import ('../constants/orderConstants').ORDER_LIST_REQUEST
+    payload?: string
+}
+type OrderListSuccess={
+    type: typeof import ('../constants/orderConstants').ORDER_LIST_SUCCESS
+    payload:  any
+}
+type OrderListFail={
+    type: typeof import ('../constants/orderConstants').ORDER_LIST_FAIL
     payload: string
 }
 
