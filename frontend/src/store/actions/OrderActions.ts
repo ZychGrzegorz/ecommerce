@@ -1,4 +1,4 @@
-import {ORDER_CREATE_REQUEST, ORDER_CREATE_SUCCESS, ORDER_CREATE_FAIL, ORDER_DETAILS_REQUEST, ORDER_DETAILS_SUCCESS, ORDER_DETAILS_FAIL, ORDER_PAY_FAIL, ORDER_PAY_REQUEST, ORDER_PAY_SUCCESS, ORDER_LIST_MY_REQUEST, ORDER_LIST_MY_FAIL, ORDER_LIST_MY_SUCCESS, ORDER_LIST_MY_RESET} from '../constants/orderConstants'
+import {ORDER_CREATE_REQUEST, ORDER_CREATE_SUCCESS, ORDER_CREATE_FAIL, ORDER_DETAILS_REQUEST, ORDER_DETAILS_SUCCESS, ORDER_DETAILS_FAIL, ORDER_PAY_FAIL, ORDER_PAY_REQUEST, ORDER_PAY_SUCCESS, ORDER_LIST_MY_REQUEST, ORDER_LIST_MY_FAIL, ORDER_LIST_MY_SUCCESS, ORDER_LIST_MY_RESET, ORDER_LIST_FAIL, ORDER_LIST_SUCCESS, ORDER_LIST_REQUEST, ORDER_DELIVER_REQUEST, ORDER_DELIVER_SUCCESS, ORDER_DELIVER_FAIL} from '../constants/orderConstants'
 import axios from "axios"
 import { ThunkAction } from "redux-thunk"
 import { RootState } from "../store"
@@ -114,6 +114,45 @@ export const payOrder =(orderId: string, paymentResult:any): ThunkAction<void, R
     }
 }
 
+export const deliverOrder =(order: Order): ThunkAction<void, RootState,null,OrderDeliverStateAction>=> async(dispatch, getState)=>{
+   
+    try {
+        dispatch({           
+            type: ORDER_DELIVER_REQUEST
+        })
+
+        type userLogin={
+                userLogin:{
+                        userInfo: {
+                                token: string}}
+        }
+        const {userLogin: {userInfo}}:userLogin = getState()
+
+        const config = {
+            headers: {        
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+   
+        
+        const {data} = await axios.put(`/api/orders/${order._id}/deliver`, {}, config)
+       
+       
+        dispatch({
+            type: ORDER_DELIVER_SUCCESS,
+            payload: data,
+        })
+        
+        
+    } catch (error) {
+       
+            dispatch({
+                type: ORDER_DELIVER_FAIL,
+                payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+            })
+    }
+}
+
 export const listMyOrders =(): ThunkAction<void, RootState,null,OrderListMyAction>=> async(dispatch, getState)=>{
    
     try {
@@ -155,3 +194,43 @@ export const listMyOrders =(): ThunkAction<void, RootState,null,OrderListMyActio
             })
     }
 }
+
+export const listOrders =(): ThunkAction<void, RootState,null,OrderListAction>=> async(dispatch, getState)=>{
+   
+    try {
+        dispatch({           
+            type: ORDER_LIST_REQUEST
+        })
+
+        type userLogin={
+                userLogin:{
+                        userInfo: {
+                                token: string}}
+        }
+        const {userLogin: {userInfo}}:userLogin = getState()
+
+        const config = {
+            headers: {      
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+   
+        
+        const {data} = await axios.get(`/api/orders`, config)
+       
+       
+        dispatch({
+            type: ORDER_LIST_SUCCESS,
+            payload: data,
+        })
+        
+        
+    } catch (error) {
+       
+            dispatch({
+                type: ORDER_LIST_FAIL,
+                payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+            })
+    }
+}
+
