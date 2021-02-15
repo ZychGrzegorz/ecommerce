@@ -6,21 +6,27 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { listProducts } from '../store/actions/productActions'
 import { RootState } from '../store/store'
+import { RouteComponentProps } from 'react-router-dom'
 type ProductList = {
   loading: boolean
   error: string
   products: Product[]
 }
+interface MatchParams {
+  keyword: string
+}
 
-const HomeScreen = () => {
+interface MatchProps extends RouteComponentProps<MatchParams> {}
+const HomeScreen = ({ match }: MatchProps) => {
+  const keyword = match.params.keyword
   const dispatch = useDispatch()
   const productList: ProductList = useSelector(
     (state: RootState) => state.productList
   )
   const { loading, error, products } = productList
   useEffect(() => {
-    dispatch(listProducts())
-  }, [dispatch])
+    dispatch(listProducts(keyword))
+  }, [dispatch, keyword])
 
   return (
     <div>

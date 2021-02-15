@@ -10,6 +10,7 @@ interface Product {
     countInStock?: number,
     rating?: number,
     numReviews?: number,
+    reviews?: array<string>
 }
 
 type ProductState ={
@@ -18,11 +19,6 @@ type ProductState ={
     error: string
 }
 
-type ProductDetails={
-    product: Product|null,
-    loading: boolean,
-    error: string
-}
 
 
 type ProductListRequest={
@@ -226,7 +222,7 @@ type OrderDetailsStateAction = | OrderDetailsRequest | OrderDetailsSuccess | Ord
 
 type OrderDetailsRequest={
     type: typeof import ('../constants/orderConstants').ORDER_DETAILS_REQUEST
-    payload?: string
+    payload: string
 }
 type OrderDetailsSuccess={
     type: typeof import ('../constants/orderConstants').ORDER_DETAILS_SUCCESS
@@ -243,7 +239,7 @@ type OrderPayStateAction = | OrderPayRequest | OrderPaySuccess | OrderPayFails |
 
 type OrderPayRequest={
     type: typeof import ('../constants/orderConstants').ORDER_PAY_REQUEST
-    payload?: string
+    payload: string
 }
 type OrderPaySuccess={
     type: typeof import ('../constants/orderConstants').ORDER_PAY_SUCCESS
@@ -262,7 +258,7 @@ type OrderDeliverStateAction = | OrderDeliverRequest | OrderDeliverSuccess | Ord
 
 type OrderDeliverRequest={
     type: typeof import ('../constants/orderConstants').ORDER_DELIVER_REQUEST
-    payload?: string
+    payload: string
 }
 type OrderDeliverSuccess={
     type: typeof import ('../constants/orderConstants').ORDER_DELIVER_SUCCESS
@@ -281,7 +277,7 @@ type OrderListMyAction = |OrderListMyRequest|OrderListMySuccess |OrderListMyFail
 
 type OrderListMyRequest={
     type: typeof import ('../constants/orderConstants').ORDER_LIST_MY_REQUEST
-    payload?: string
+    payload: string
 }
 type OrderListMySuccess={
     type: typeof import ('../constants/orderConstants').ORDER_LIST_MY_SUCCESS
@@ -296,7 +292,7 @@ type OrderListAction = |OrderListRequest|OrderListSuccess |OrderListFail
 
 type OrderListRequest={
     type: typeof import ('../constants/orderConstants').ORDER_LIST_REQUEST
-    payload?: string
+    payload: string
 }
 type OrderListSuccess={
     type: typeof import ('../constants/orderConstants').ORDER_LIST_SUCCESS
@@ -445,5 +441,24 @@ type ProductUpdateFail={
 }
 type ProductUpdateReset={
     type: typeof import ('../constants/constants').PRODUCT_UPDATE_RESET
+    payload: string
+}
+
+type ProductCreateReviewAction = | ProductCreateReviewRequest | ProductCreateReviewSuccess | ProductCreateReviewFail | ProductCreateReviewReset
+
+type ProductCreateReviewRequest={
+    type: typeof import ('../constants/constants').PRODUCT_CREATE_REVIEW_REQUEST
+    payload?: string
+}
+type ProductCreateReviewSuccess={
+    type: typeof import ('../constants/constants').PRODUCT_CREATE_REVIEW_SUCCESS
+    payload:  any
+}
+type ProductCreateReviewFail={
+    type: typeof import ('../constants/constants').PRODUCT_CREATE_REVIEW_FAIL
+    payload: string
+}
+type ProductCreateReviewReset={
+    type: typeof import ('../constants/constants').PRODUCT_CREATE_REVIEW_RESET
     payload: string
 }
