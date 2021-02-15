@@ -4,13 +4,21 @@ import {
     Request,
     Response
 } from 'express'
+import products from '../data/products.js'
 
 
 //@description   Fetch all products
-//@route         Get /api/products
+//@route         Get /api/products  /keyword
 //@access        Public
 const getProducts = asyncHandler(async (req: Request, res: Response) => {
-    const products = await Product.find({})
+    const keyword = req.query.keyword?{
+        name: {$regex: req.query.keyword,
+        $options: 'i'}
+    }:{
+
+    }
+
+    const products = await Product.find({...keyword})
 
     res.json(products)
 })
@@ -102,10 +110,47 @@ const updateProduct = asyncHandler(async (req: Request, res: Response) => {
     }
 })
 
+//@description   Create new review
+//@route         POST /api/products/:id/reviews
+//@access        Private
+const createProductReview = asyncHandler(async (req: Request, res: Response) => {
+    const {
+        rating, comment
+    } = req.body
+
+    const product: any = await Product.findById(req.params.id)
+    
+    if (product) {
+        const alreadyReviewed = product.reviews.find((r:any)=>r.user.toString()===req.user._id.toString())
+        if(alreadyReviewed){
+            res.status(400)
+            throw new Error('Product already reviewed')
+        }
+    } else {
+        res.status(404)
+        throw new Error('Product not found')
+    }
+    const review = {
+        name: req.user.name,
+        rating: Number(rating),
+        comment,
+        user: req.user._id
+    }
+    product.reviews.push(review)
+
+    product.numReviews = product.reviews.length
+
+    product.rating = product.reviews.reduce((acc:number,item:{rating: number})=>item.rating + acc,0)/Number(product.reviews.length)
+
+    await product.save()
+    res.status(201).json({message: 'Review added'})
+})
+
 export {
     getProducts,
     getProductById,
     deleteProduct,
     createProduct,
-    updateProduct
+    updateProduct,
+    createProductReview
 }

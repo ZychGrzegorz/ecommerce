@@ -2,6 +2,7 @@ import path from 'path';
 import express from 'express';
 import dotenv from 'dotenv';
 import colors from 'colors';
+import morgan from 'morgan';
 import connectDB from './config/config.js';
 import productRoutes from './routes/productRoutes.js';
 import userRoutes from './routes/userRoutes.js';
@@ -13,6 +14,9 @@ dotenv.config();
 connectDB();
 var app = express();
 app.use(express.json());
+if (process.env.NODE_ENV === 'development') {
+    app.use(morgan('dev'));
+}
 app.get('/', function (req, res) {
     res.send('API is running...');
 });
