@@ -11,16 +11,19 @@ import products from '../data/products.js'
 //@route         Get /api/products  /keyword
 //@access        Public
 const getProducts = asyncHandler(async (req: Request, res: Response) => {
+    const pageSize = 10
+    const page = Number(req.query.pageNumber) || 1
     const keyword = req.query.keyword?{
         name: {$regex: req.query.keyword,
         $options: 'i'}
     }:{
 
     }
+    const count = await Product.countDocuments({...keyword})
+    const products = await Product.find({...keyword}).limit(pageSize).skip(pageSize*(page-1))
 
-    const products = await Product.find({...keyword})
-
-    res.json(products)
+    
+    res.json({products, page, pages: Math.ceil(count / pageSize)})
 })
 
 //@description   Fetch single product
