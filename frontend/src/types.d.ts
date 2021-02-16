@@ -13,22 +13,22 @@ interface Product {
     reviews?: array<string>
 }
 
-type ProductState ={
-    data: Product[] | null,
-    loading: boolean,
-    error: string
-}
+
 
 
 
 type ProductListRequest={
     type: typeof import ('./store/constants').PRODUCT_LIST_REQUEST
-    payload?: string 
+    payload?: any 
     }
 
 type ProductListSucces={
     type: typeof import ('./store/constants').PRODUCT_LIST_SUCCESS
-    payload:  Product[]
+    payload:  {
+        products: Array<Product>,
+        pages: string, 
+        page:string 
+    }
 }
 type ProductListFail={
     type: typeof import ('./store/constants').PRODUCT_LIST_FAIL
@@ -39,16 +39,16 @@ type ProductAction = | ProductListRequest|ProductListSucces|ProductListFail
 
 type ProductDetailsRequest={
     type: typeof import ('./store/constants').PRODUCT_DETAILS_REQUEST
-    payload?: string 
+    payload?: any 
     }
 
 type ProductDetailsSucces={
     type: typeof import ('./store/constants').PRODUCT_DETAILS_SUCCESS
-    payload:  Product[]
+    payload:  any
 }
 type ProductDetailsFail={
     type: typeof import ('./store/constants').PRODUCT_DETAILS_FAIL
-    payload: string
+    payload: any
 }
 
 type ProductDetailsAction = | ProductDetailsRequest|ProductDetailsSucces|ProductDetailsFail
