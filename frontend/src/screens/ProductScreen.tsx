@@ -10,6 +10,7 @@ import {
 import { RootState } from '../store/store'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
+import Meta from '../components/Meta'
 import {
   PRODUCT_CREATE_RESET,
   PRODUCT_CREATE_REVIEW_RESET,
@@ -28,16 +29,14 @@ const ProductScreen = ({ history, match }: MatchProps) => {
 
   const dispatch = useDispatch()
 
-  type ProductDetails = {
+  type ProductDetailsType = {
     product: (Product & { numReviews: Array<number> }) | null
     loading: boolean
     error: string
   }
 
-  const productDetails: ProductDetails = useSelector(
-    (state: RootState) => state.productDetails
-  )
-  const { loading, error, product } = productDetails
+  const productDetails = useSelector((state: RootState) => state.productDetails)
+  const { loading, error, product } = productDetails as ProductDetailsType
 
   type ProductReviewDetails = {
     success: boolean
@@ -97,6 +96,7 @@ const ProductScreen = ({ history, match }: MatchProps) => {
         <>
           {product ? (
             <>
+              <Meta title={product.name} />
               <Row>
                 <Col md={6}>
                   {product && (product.image || product.name) ? (

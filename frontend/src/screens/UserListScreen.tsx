@@ -8,6 +8,7 @@ import Loader from '../components/Loader'
 import { RootState } from '../store/store'
 import { listUsers, deleteUser } from '../store/actions/userActions'
 import { RouteComponentProps } from 'react-router-dom'
+import Meta from '../components/Meta'
 
 const UserListScreen = ({ history }: RouteComponentProps) => {
   const dispatch = useDispatch()
@@ -37,6 +38,7 @@ const UserListScreen = ({ history }: RouteComponentProps) => {
   }
   return (
     <>
+      <Meta title='Music Shop | User list' />
       <h1>Users</h1>
       {loading ? (
         <Loader />

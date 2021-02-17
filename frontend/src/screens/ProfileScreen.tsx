@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react'
+import Message from '../components/Message'
+import Loader from '../components/Loader'
+import Meta from '../components/Meta'
 import { RouteComponentProps } from 'react-router-dom'
 import { Form, Button, Row, Col, Table } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import Message from '../components/Message'
-import Loader from '../components/Loader'
-import { getUserDetails, updateUserProfile } from '../store/actions/userActions'
-import { listMyOrders } from '../store/actions/orderActions'
-import { RootState } from '../store/store'
 import { LinkContainer } from 'react-router-bootstrap'
+import { RootState } from '../store/store'
+import { listMyOrders } from '../store/actions/orderActions'
+import { getUserDetails, updateUserProfile } from '../store/actions/userActions'
+import { USER_UPDATE_PROFILE_RESET } from '../store/constants/userConstants'
 
-const ProfileScreen = ({ location, history }: RouteComponentProps) => {
+const ProfileScreen = ({ history }: RouteComponentProps) => {
   const [name, setName] = useState<string>('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -18,11 +20,19 @@ const ProfileScreen = ({ location, history }: RouteComponentProps) => {
 
   const dispatch = useDispatch()
 
+  type userDetailsType = {
+    loading: boolean
+    error: string
+    user: User
+  }
   const userDetails = useSelector((state: RootState) => state.userDetails)
-  const { loading, error, user } = userDetails
+  const { loading, error, user } = userDetails as userDetailsType
 
+  type userLoginType = {
+    userInfo: User
+  }
   const userLogin = useSelector((state: RootState) => state.userLogin)
-  const { userInfo } = userLogin
+  const { userInfo } = userLogin as userLoginType
 
   const userUpdateProfile = useSelector(
     (state: RootState) => state.userUpdateProfile
@@ -36,7 +46,8 @@ const ProfileScreen = ({ location, history }: RouteComponentProps) => {
     if (!userInfo) {
       history.push('/login')
     } else {
-      if (!user.name) {
+      if (!user || !user.name || success) {
+        dispatch({ type: USER_UPDATE_PROFILE_RESET })
         dispatch(getUserDetails('profile'))
         dispatch(listMyOrders())
       } else {
@@ -44,7 +55,7 @@ const ProfileScreen = ({ location, history }: RouteComponentProps) => {
         setEmail(user.email)
       }
     }
-  }, [dispatch, history, userInfo, user])
+  }, [dispatch, history, userInfo, user, success])
 
   const submitHandler = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault()
@@ -56,6 +67,8 @@ const ProfileScreen = ({ location, history }: RouteComponentProps) => {
   }
   return (
     <Row>
+      <Meta title='Music Shop | Profile' />
+
       <Col md={3}>
         <h2>User Profile</h2>
         {message && <Message variant='danger'>{message}</Message>}

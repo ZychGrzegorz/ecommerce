@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { RouteComponentProps, Link } from 'react-router-dom'
 import { Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import CheckoutSteps from '../components/CheckoutSteps'
-import { saveShippingAddress } from '../store/actions/cartActions'
 import { RootState } from '../store/store'
 import { createOrder } from '../store/actions/orderActions'
+import Meta from '../components/Meta'
 
 const PlaceOrderScreen = ({ history }: RouteComponentProps) => {
   const dispatch = useDispatch()
@@ -66,6 +66,7 @@ const PlaceOrderScreen = ({ history }: RouteComponentProps) => {
   }
   return (
     <>
+      <Meta title='Music Shop | Place order' />
       <CheckoutSteps step1 step2 step3 step4 />
       <Row>
         <Col md={8}>

@@ -16,6 +16,7 @@ import {
   ORDER_PAY_RESET,
   ORDER_DELIVER_RESET,
 } from '../store/constants/orderConstants'
+import Meta from '../components/Meta'
 
 interface MatchParams {
   id: string
@@ -103,6 +104,7 @@ const OrderScreen = ({ match, history }: RouteComponentProps<MatchParams>) => {
     <Message variant='danger'>{error}</Message>
   ) : (
     <>
+      <Meta title='Music Shop | Order' />
       <h1>Order {order._id}</h1>
       <Row>
         <Col md={8}>

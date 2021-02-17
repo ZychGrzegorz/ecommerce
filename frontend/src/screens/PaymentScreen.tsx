@@ -6,6 +6,7 @@ import FormContainer from '../components/FormContainer'
 import CheckoutSteps from '../components/CheckoutSteps'
 import { savePaymentMethod } from '../store/actions/cartActions'
 import { RootState } from '../store/store'
+import Meta from '../components/Meta'
 
 const PaymentScreen = ({ history }: RouteComponentProps) => {
   const cart = useSelector((state: RootState) => state.cart)
@@ -25,6 +26,7 @@ const PaymentScreen = ({ history }: RouteComponentProps) => {
   }
   return (
     <FormContainer>
+      <Meta title='Music Shop | Payment' />
       <CheckoutSteps step1 step2 step3 />
       <h1>Payment Method</h1>
       <Form onSubmit={submitHandler}>

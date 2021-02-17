@@ -5,6 +5,7 @@ import { Table, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
+import Meta from '../components/Meta'
 import { RootState } from '../store/store'
 import { listOrders } from '../store/actions/orderActions'
 import { RouteComponentProps } from 'react-router-dom'
@@ -28,6 +29,7 @@ const OrderListScreen = ({ history }: RouteComponentProps) => {
 
   return (
     <>
+      <Meta title='Music Shop | Order list' />
       <h1>Orders</h1>
       {loading ? (
         <Loader />
