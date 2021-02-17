@@ -13,7 +13,77 @@ interface Product {
     reviews?: array<string>
 }
 
+type User = {
+    email: string,
+    name: string,
+    id?: string,
+    _id?: string,
+    password?: string,
+    isAdmin?: boolean,
+    token?: string,
+}
 
+type CartItem = {
+    product: string,
+    name: string,
+    image: string,
+    price: number,
+    countInStock: number,
+    qty: number,
+}
+
+type shippingAddressType={ 
+    address: string, 
+    city: string, 
+    postalCode:string,
+    country: string
+}
+type CartState = {
+    cartItems: CartItem[]
+    shippingAddress: shippingAddressType
+    paymentMethod: string
+    itemsPrice?: number|null|string
+    shippingPrice?: number|null|string
+    taxPrice?: number|null|string
+    totalPrice?: number|null|string
+  }
+
+  type OrderType={
+    orderItems: CartItem[],
+    shippingAddress: shippingAddressType,
+    paymentMethod: string,
+    itemsPrice: number,
+    shippingPrice: number,
+    taxPrice:number,
+    totalPrice: number,
+}
+
+type orderDetailsType = {
+    order: CartState & {
+      _id: string
+      orderItems: CartItem[]
+      user: { email: string; name: string }
+      isPaid: boolean
+      paidAt: Date
+      isDelivered: boolean
+      deliveredAt: Date
+      totalPrice: number
+      itemsprice: any,
+    }
+    loading?: boolean
+    error?: string
+  }
+
+type Order = CartState & {
+    _id: string
+    orderItems: CartItem[],
+    user: { email: string; name: string }
+    isPaid: boolean
+    paidAt: string
+    isDelivered: boolean
+    deliveredAt: string
+    createdAt: string
+    totalPrice: number}
 
 
 
@@ -27,7 +97,7 @@ type ProductListSucces={
     payload:  {
         products: Array<Product>,
         pages: string, 
-        page:string 
+        page: string 
     }
 }
 type ProductListFail={
@@ -66,17 +136,11 @@ type UserUpdateProfileFail={
     type: typeof import ('./store/constants/userConstants').USER_UPDATE_PROFILE_FAIL
     payload: string
 }
-type UserUpdateProfileAction = | UserUpdateProfileRequest  | UserUpdateProfileSucces |UserUpdateProfileFail
-
-
-type CartItem={
-    product: string,
-    name: string,
-    image: string,
-    price: number,
-    countInStock: number,
-    qty: number,
+type UserUpdateProfileReset={
+    type: typeof import ('./store/constants/userConstants').USER_UPDATE_PROFILE_RESET
+    payload: string
 }
+type UserUpdateProfileAction = | UserUpdateProfileRequest  | UserUpdateProfileSucces | UserUpdateProfileFail | UserUpdateProfileReset
 
 type CartAddItem={
     type: typeof import ('./store/constants/cartConstants').CART_ADD_ITEM
@@ -98,16 +162,7 @@ type CartSavePaymentMethod={
 
 type CartActions = | CartAddItem | CartRemoveItem | CartSaveShippingAddress | CartSavePaymentMethod
 
-type User = {
-    email: string,
-    name: string,
-    id?: string,
-    _id?: string,
-    password?: string,
-    isAdmin?: boolean,
-    token?: string,
-   
-}
+
 
 type UserLoginRequest={
     type: typeof import ('../constants/userConstants').USER_LOGIN_REQUEST
@@ -176,22 +231,7 @@ type UserUpdateStateFail={
 
 type UserUpdateStateAction = | UserUpdateStateRequest | UserUpdateStateSuccess | UserUpdateStateFail
 
-type shippingAddressType={ 
-    address: string, 
-    city: string, 
-    postalCode:string,
-    country: string
-}
-type CartState = {
-    cartItems: CartItem[]
-    shippingAddress: shippingAddressType
-    paymentMethod: string
-    itemsPrice: number|null|string
-    shippingPrice: number|null|string
-    taxPrice: number|null|string
-    totalPrice: number|null|string
-    
-  }
+
 
 type OrderCreateRequest={
     type: typeof import ('../constants/orderConstants').ORDER_CREATE_REQUEST
@@ -208,15 +248,7 @@ type OrderCreateFail={
 
 type OrderCreateStateAction = | OrderCreateRequest | OrderCreateSuccess | OrderCreateFail
 
-type OrderType={
-    orderItems: CartItem[],
-    shippingAddress: shippingAddressType,
-    paymentMethod: string,
-    itemsPrice: number,
-    shippingPrice: number,
-    taxPrice:number,
-    totalPrice: number,
-}
+
 
 type OrderDetailsStateAction = | OrderDetailsRequest | OrderDetailsSuccess | OrderDetailsFails
 
@@ -303,33 +335,6 @@ type OrderListFail={
     payload: string
 }
 
-type orderDetailsType = {
-    order: CartState & {
-      _id: string
-      orderItems: CartItem[]
-      user: { email: string; name: string }
-      isPaid: boolean
-      paidAt: Date
-      isDelivered: boolean
-      deliveredAt: Date
-      totalPrice: number
-      itemsprice: any,
-
-    }
-    loading?: boolean
-    error?: string
-  }
-
-type Order = CartState & {
-    _id: string
-    orderItems: CartItem[],
-    user: { email: string; name: string }
-    isPaid: boolean
-    paidAt: string
-    isDelivered: boolean
-    deliveredAt: string
-    createdAt: string
-    totalPrice: number}
 
     
 type UserListAction = | UserListStateRequest | UserListStateSuccess | UserListStateFail | UserListStateReset
@@ -365,6 +370,7 @@ type UserDeleteFail={
     type: typeof import ('../constants/userConstants').USER_DELETE_FAIL
     payload: string
 }
+
 
 type UserUpdateAction = | UserUpdateRequest | UserUpdateSuccess | UserUpdateFail | UserUpdateReset
 
@@ -460,5 +466,21 @@ type ProductCreateReviewFail={
 }
 type ProductCreateReviewReset={
     type: typeof import ('../constants/constants').PRODUCT_CREATE_REVIEW_RESET
+    payload: string
+}
+
+
+type ProductTopRatedAction = | ProductTopRatedRequest | ProductTopRatedSuccess | ProductTopRatedFail 
+
+type ProductTopRatedRequest={
+    type: typeof import ('../constants/constants').PRODUCT_TOP_REQUEST
+    payload?: any
+}
+type ProductTopRatedSuccess={
+    type: typeof import ('../constants/constants').PRODUCT_TOP_SUCCESS
+    payload:  Array<Product>
+}
+type ProductTopRatedFail={
+    type: typeof import ('../constants/constants').PRODUCT_TOP_FAIL
     payload: string
 }

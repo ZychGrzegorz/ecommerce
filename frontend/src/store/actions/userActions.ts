@@ -143,6 +143,11 @@ export const updateUserProfile =(user: User): ThunkAction<void, RootState,null,U
             type: USER_UPDATE_PROFILE_SUCCESS,
             payload: data
         })
+        dispatch({
+            type: USER_LOGIN_SUCCESS,
+            payload: data
+        })
+        localStorage.setItem('userInfo',JSON.stringify(data))
         
     } catch (error) {
        
@@ -223,8 +228,8 @@ export const deleteUser =(id: string): ThunkAction<void, RootState,null,UserDele
     }
 }
 
-export const updateUser =(user:User): ThunkAction<void, RootState,null,UserDeleteAction>=> async(dispatch, getState)=>{
-console.log(user)
+export const updateUser =(user:User): ThunkAction<void, RootState,null,UserUpdateAction>=> async(dispatch, getState)=>{
+
     try {
         dispatch({
             type: USER_UPDATE_REQUEST

@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import { addToCart, removeFromCart } from '../store/actions/cartActions'
 import { RootState } from '../store/store'
+import Meta from '../components/Meta'
+
 interface MatchParams {
   id: string | undefined
 }
@@ -31,6 +33,7 @@ const CartScreen = ({ match, location, history }: MatchProps) => {
   }
   return (
     <Row>
+      <Meta title='Music Shop | Cart' />
       <Col md={8}>
         <h1>Shopping Cart</h1>
         {cartItems.length === 0 ? (

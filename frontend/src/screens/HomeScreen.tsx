@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { Row, Col } from 'react-bootstrap'
 import Product from '../components/Product'
@@ -8,6 +9,8 @@ import Paginate from '../components/Paginate'
 import { listProducts } from '../store/actions/productActions'
 import { RootState } from '../store/store'
 import { RouteComponentProps } from 'react-router-dom'
+import ProductCarousel from '../components/ProductCarousel'
+import Meta from '../components/Meta'
 type ProductList = {
   loading: boolean
   error: string
@@ -43,6 +46,14 @@ const HomeScreen = ({ match }: MatchProps) => {
 
   return (
     <>
+      <Meta />
+      {!keyword ? (
+        <ProductCarousel />
+      ) : (
+        <Link to='/' className='btn btn-light'>
+          Go Back
+        </Link>
+      )}
       <h1>Latest Products</h1>
       {loading ? (
         <Loader />

@@ -7,6 +7,7 @@ import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
 import { login } from '../store/actions/userActions'
 import { RootState } from '../store/store'
+import Meta from '../components/Meta'
 
 const LoginScreen = ({ location, history }: RouteComponentProps) => {
   const [email, setEmail] = useState('')
@@ -27,6 +28,7 @@ const LoginScreen = ({ location, history }: RouteComponentProps) => {
   }
   return (
     <FormContainer>
+      <Meta title='Music Shop | Login' />
       <h1>Sign In</h1>
       {error && <Message variant='danger'>{error}</Message>}
       {loading && <Loader />}

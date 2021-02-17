@@ -12,6 +12,7 @@ import {
 } from '../store/actions/productActions'
 import { RootState } from '../store/store'
 import { PRODUCT_UPDATE_RESET } from '../store/constants/constants'
+import Meta from '../components/Meta'
 
 interface MatchParams {
   id: string
@@ -112,6 +113,7 @@ const ProductEditScreen = ({ match, history }: MatchProps) => {
   }
   return (
     <>
+      <Meta title='Music Shop | Product edit' />
       <Link to='/admin/productlist' className='btn btn-light my-3'>
         Go Back
       </Link>

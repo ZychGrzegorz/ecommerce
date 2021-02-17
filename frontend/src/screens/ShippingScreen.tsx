@@ -6,6 +6,7 @@ import FormContainer from '../components/FormContainer'
 import CheckoutSteps from '../components/CheckoutSteps'
 import { saveShippingAddress } from '../store/actions/cartActions'
 import { RootState } from '../store/store'
+import Meta from '../components/Meta'
 
 const ShippingScreen = ({ history }: RouteComponentProps) => {
   const cart: any = useSelector((state: RootState) => state.cart)
@@ -24,6 +25,7 @@ const ShippingScreen = ({ history }: RouteComponentProps) => {
   }
   return (
     <FormContainer>
+      <Meta title='Music Shop | Shipping' />
       <CheckoutSteps step1 step2 />
       <h1>Shipping</h1>
       <Form onSubmit={submitHandler}>

@@ -7,6 +7,7 @@ import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
 import { register } from '../store/actions/userActions'
 import { RootState } from '../store/store'
+import Meta from '../components/Meta'
 
 const RegisterScreen = ({ location, history }: RouteComponentProps) => {
   const [name, setName] = useState<string>('')
@@ -37,6 +38,7 @@ const RegisterScreen = ({ location, history }: RouteComponentProps) => {
   }
   return (
     <FormContainer>
+      <Meta title='Music Shop | Registration' />
       <h1>Sign Up</h1>
       {message && <Message variant='danger'>{message}</Message>}
       {error && <Message variant='danger'>{error}</Message>}

@@ -7,7 +7,7 @@ interface MatchParams {
 }
 
 interface MatchProps extends RouteComponentProps<MatchParams> {}
-const SeachBox = ({ history }: MatchParams) => {
+const SeachBox = ({ history }: MatchProps) => {
   const [keyword, setKeyword] = useState<string>('')
   const submitHandler = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault()

@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
-
 import { LinkContainer } from 'react-router-bootstrap'
 import { Table, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import Paginate from '../components/Paginate'
+import Meta from '../components/Meta'
 import { RootState } from '../store/store'
 import {
   listProducts,
@@ -95,6 +95,7 @@ const ProductListScreen = ({ history, match }: MatchProps) => {
   }
   return (
     <>
+      <Meta title='Music Shop | Product list' />
       <Row className='align-items-center'>
         <Col>
           <h1>Products</h1>
