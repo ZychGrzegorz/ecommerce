@@ -2,20 +2,33 @@ import React, { useEffect } from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Table, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import Message from '../components/Message'
-import Loader from '../components/Loader'
-import Meta from '../components/Meta'
 import { RootState } from '../store/store'
 import { listOrders } from '../store/actions/OrderActions'
 import { RouteComponentProps } from 'react-router-dom'
+import Message from '../components/Message'
+import Loader from '../components/Loader'
+import Meta from '../components/Meta'
 
-const OrderListScreen = ({ history }: RouteComponentProps) => {
+type orderListType = {
+  loading: boolean
+  error: string
+  orders: Array<Order>
+}
+type userLoginType = {
+  userInfo: User
+}
+
+const OrderListScreen: React.FC<RouteComponentProps> = ({ history }) => {
   const dispatch = useDispatch()
 
-  const orderList: any = useSelector((state: RootState) => state.orderList)
+  const orderList: orderListType = useSelector(
+    (state: RootState) => state.orderList
+  )
   const { loading, error, orders } = orderList
 
-  const userLogin: any = useSelector((state: RootState) => state.userLogin)
+  const userLogin: userLoginType = useSelector(
+    (state: RootState) => state.userLogin
+  )
   const { userInfo } = userLogin
 
   useEffect(() => {

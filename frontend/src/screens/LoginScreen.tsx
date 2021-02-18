@@ -2,26 +2,37 @@ import React, { useState, useEffect } from 'react'
 import { Link, RouteComponentProps } from 'react-router-dom'
 import { Form, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import Message from '../components/Message'
-import Loader from '../components/Loader'
-import FormContainer from '../components/FormContainer'
 import { login } from '../store/actions/userActions'
 import { RootState } from '../store/store'
 import Meta from '../components/Meta'
+import Message from '../components/Message'
+import Loader from '../components/Loader'
+import FormContainer from '../components/FormContainer'
+
+type userLoginType = {
+  loading: boolean
+  error: string
+  userInfo: User
+}
 
 const LoginScreen = ({ location, history }: RouteComponentProps) => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
 
   const redirect = location.search ? location.search.split('=')[1] : '/'
+
   const dispatch = useDispatch()
-  const userLogin = useSelector((state: RootState) => state.userLogin)
+  const userLogin: userLoginType = useSelector(
+    (state: RootState) => state.userLogin
+  )
   const { loading, error, userInfo } = userLogin
+
   useEffect(() => {
     if (userInfo) {
       history.push(redirect)
     }
   }, [history, userInfo, redirect])
+
   const submitHandler = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault()
     dispatch(login(email, password))
