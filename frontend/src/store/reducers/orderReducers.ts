@@ -36,38 +36,33 @@ switch(action.type){
 
 
 type OrderDetailsState={
-    orderItems: object,
-    shippingAddress: object,
     loading: boolean
+    error: string
+    order?: OrderType 
     }
 
 const initialOrderDetailsState={
     loading: true,
-    orderItems:[],
-    shippingAddress:{}
-    
+    error: '',
     }
 
-export const orderDetailsReducer = (state:OrderDetailsState=initialOrderDetailsState,action:OrderDetailsStateAction)=>{
+export const orderDetailsReducer = (state: OrderDetailsState=initialOrderDetailsState,action:OrderDetailsStateAction)=>{
     switch(action.type){
         case ORDER_DETAILS_REQUEST:
             return {
-                ...state,
                 loading: true
             }
         case ORDER_DETAILS_SUCCESS:
             return {
-                ...state,
                 loading: false,
                 order: action.payload
             }
         case ORDER_DETAILS_FAIL:
             return{
-                ...state,
                 loading: false,
                 error: action.payload,
             }
-            default: 
+        default: 
             return state
     }
     }

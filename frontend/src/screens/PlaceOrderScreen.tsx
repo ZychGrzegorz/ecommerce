@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import CheckoutSteps from '../components/CheckoutSteps'
 import { RootState } from '../store/store'
-import { createOrder } from '../store/actions/OrderActions'
+import { createOrder } from '../store/actions/orderActions'
 import Meta from '../components/Meta'
 
 const PlaceOrderScreen = ({ history }: RouteComponentProps) => {
@@ -94,7 +94,7 @@ const PlaceOrderScreen = ({ history }: RouteComponentProps) => {
                   {cart.cartItems.map((item: CartItem, index: number) => (
                     <ListGroup.Item key={index}>
                       <Row>
-                        <Col md={1}>
+                        <Col md={4}>
                           <Image
                             src={item.image}
                             alt={item.name}

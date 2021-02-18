@@ -48,31 +48,44 @@ type CartState = {
     totalPrice?: number|null|string
   }
 
-  type OrderType={
-    orderItems: CartItem[],
-    shippingAddress: shippingAddressType,
-    paymentMethod: string,
-    itemsPrice: number,
-    shippingPrice: number,
-    taxPrice:number,
-    totalPrice: number,
-}
+//   type OrderType={
+//     shippingAddress: shippingAddressType,
+//     taxPrice:number,
+//     shippingPrice: number,
+//     totalPrice: number,
+//     isPaid: boolean,
+//     isDelivered: boolean,
+//     _id: string
+//     orderItems: Array<CartItem>,
+//     user:{
+//         _id: string,
+//         email: string,
+//         name: string
+//     }
+//     paymentMethod: string,
+//     itemsPrice: number,
+//     createdAt: string,
+//     updatedAt: string,
+//     itemsPrice: string,
+//     deliveredAt: string
+//     paidAt: string
+// }
 
-type orderDetailsType = {
-    order: CartState & {
-      _id: string
-      orderItems: CartItem[]
-      user: { email: string; name: string }
-      isPaid: boolean
-      paidAt: Date
-      isDelivered: boolean
-      deliveredAt: Date
-      totalPrice: number
-      itemsprice: any,
-    }
-    loading?: boolean
-    error?: string
-  }
+// type orderDetailsType = {
+//     order: CartState & {
+//       _id: string
+//       orderItems: CartItem[]
+//       user: { email: string; name: string }
+//       isPaid: boolean
+//       paidAt: Date
+//       isDelivered: boolean
+//       deliveredAt: Date
+//       totalPrice: number
+//       itemsprice: any,
+//     }
+//     loading?: boolean
+//     error?: string
+//   }
 
 type Order = CartState & {
     _id: string

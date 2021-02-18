@@ -3,7 +3,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { Table, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../store/store'
-import { listOrders } from '../store/actions/OrderActions'
+import { listOrders } from '../store/actions/orderActions'
 import { RouteComponentProps } from 'react-router-dom'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
@@ -12,7 +12,7 @@ import Meta from '../components/Meta'
 type orderListType = {
   loading: boolean
   error: string
-  orders: Array<Order>
+  orders: Array<OrderType>
 }
 type userLoginType = {
   userInfo: User
@@ -61,7 +61,7 @@ const OrderListScreen: React.FC<RouteComponentProps> = ({ history }) => {
             </tr>
           </thead>
           <tbody>
-            {orders.map((order: Order) => (
+            {orders.map((order: OrderType) => (
               <tr key={order._id}>
                 <td>{order._id}</td>
                 <td>{order.user && order.user.name}</td>

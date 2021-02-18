@@ -2,7 +2,7 @@ import {ORDER_CREATE_REQUEST, ORDER_CREATE_SUCCESS, ORDER_CREATE_FAIL, ORDER_DET
 import axios from "axios"
 import { ThunkAction } from "redux-thunk"
 import { RootState } from "../store"
-import { Dispatch } from "redux"
+
 
 export const createOrder =(order: OrderType): ThunkAction<void, RootState,null,OrderCreateStateAction>=> async(dispatch, getState)=>{
    

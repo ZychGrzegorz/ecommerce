@@ -11,7 +11,7 @@ import {
   getOrderDetails,
   payOrder,
   deliverOrder,
-} from '../store/actions/OrderActions'
+} from '../store/actions/orderActions'
 import {
   ORDER_PAY_RESET,
   ORDER_DELIVER_RESET,
@@ -24,39 +24,52 @@ interface MatchParams {
 const OrderScreen = ({ match, history }: RouteComponentProps<MatchParams>) => {
   const orderId = match.params.id
 
-  const [sdkReady, setSdkReady] = useState(false)
+  const [sdkReady, setSdkReady] = useState<boolean>(false)
 
   const dispatch = useDispatch()
 
   const addDecimals = (num: number) => {
     return (Math.round(num * 100) / 100).toFixed(2)
   }
+  type OrderDetailsType = {
+    loading: boolean
+    error: string
+    order: OrderType
+  }
+  const orderDetails: OrderDetailsType = useSelector(
+    (state: RootState) => state.orderDetails
+  )
+  const { order, loading, error } = orderDetails
 
-  const orderDetails = useSelector((state: RootState) => state.orderDetails)
-  const { order, loading, error } = orderDetails as orderDetailsType
+  type UserLoginType = {
+    userInfo: User
+  }
 
-  const userLogin = useSelector((state: RootState) => state.userLogin)
-  const { userInfo } = userLogin as any
+  const userLogin: UserLoginType = useSelector(
+    (state: RootState) => state.userLogin
+  )
+  const { userInfo } = userLogin
 
   type orderPayType = {
-    loading?: boolean
-    success?: boolean
+    loading: boolean
+    success: boolean
   }
 
   const orderPay = useSelector((state: RootState) => state.orderPay)
   const { loading: loadingPay, success: successPay } = orderPay as orderPayType
 
-  const orderDeliver = useSelector((state: RootState) => state.orderDeliver)
-  const {
-    loading: loadingDeliver,
-    success: successDeliver,
-  } = orderDeliver as orderPayType
+  const orderDeliver: orderPayType = useSelector(
+    (state: RootState) => state.orderDeliver
+  )
+  const { loading: loadingDeliver, success: successDeliver } = orderDeliver
 
   if (!loading) {
-    order.itemsPrice = addDecimals(
-      order.orderItems.reduce(
-        (acc: number, item: CartItem) => acc + item.price * item.qty,
-        0
+    order.itemsPrice = Number(
+      addDecimals(
+        order.orderItems.reduce(
+          (acc: number, item: CartItem) => acc + item.price * item.qty,
+          0
+        )
       )
     )
   }
@@ -153,7 +166,7 @@ const OrderScreen = ({ match, history }: RouteComponentProps<MatchParams>) => {
                   {order.orderItems.map((item: CartItem, index: number) => (
                     <ListGroup.Item key={index}>
                       <Row>
-                        <Col md={1}>
+                        <Col md={4}>
                           <Image
                             src={item.image}
                             alt={item.name}
