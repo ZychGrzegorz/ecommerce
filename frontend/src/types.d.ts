@@ -48,28 +48,28 @@ type CartState = {
     totalPrice?: number|null|string
   }
 
-//   type OrderType={
-//     shippingAddress: shippingAddressType,
-//     taxPrice:number,
-//     shippingPrice: number,
-//     totalPrice: number,
-//     isPaid: boolean,
-//     isDelivered: boolean,
-//     _id: string
-//     orderItems: Array<CartItem>,
-//     user:{
-//         _id: string,
-//         email: string,
-//         name: string
-//     }
-//     paymentMethod: string,
-//     itemsPrice: number,
-//     createdAt: string,
-//     updatedAt: string,
-//     itemsPrice: string,
-//     deliveredAt: string
-//     paidAt: string
-// }
+  type OrderType={
+    shippingAddress: shippingAddressType,
+    taxPrice:number,
+    shippingPrice: number,
+    totalPrice: number,
+    isPaid: boolean,
+    isDelivered: boolean,
+    _id: string
+    orderItems: Array<CartItem>,
+    user:{
+        _id: string,
+        email: string,
+        name: string
+    }
+    paymentMethod: string,
+    itemsPrice: number,
+    createdAt: string,
+    updatedAt: string,
+    itemsPrice: string,
+    deliveredAt: string
+    paidAt: string
+}
 
 // type orderDetailsType = {
 //     order: CartState & {
@@ -87,16 +87,16 @@ type CartState = {
 //     error?: string
 //   }
 
-type Order = CartState & {
-    _id: string
-    orderItems: CartItem[],
-    user: { email: string; name: string }
-    isPaid: boolean
-    paidAt: string
-    isDelivered: boolean
-    deliveredAt: string
-    createdAt: string
-    totalPrice: number}
+// type Order = CartState & {
+//     _id: string
+//     orderItems: CartItem[],
+//     user: { email: string; name: string }
+//     isPaid: boolean
+//     paidAt: string
+//     isDelivered: boolean
+//     deliveredAt: string
+//     createdAt: string
+//     totalPrice: number}
 
 
 
@@ -267,11 +267,11 @@ type OrderDetailsStateAction = | OrderDetailsRequest | OrderDetailsSuccess | Ord
 
 type OrderDetailsRequest={
     type: typeof import ('../constants/orderConstants').ORDER_DETAILS_REQUEST
-    payload: string
+    payload?: any
 }
 type OrderDetailsSuccess={
     type: typeof import ('../constants/orderConstants').ORDER_DETAILS_SUCCESS
-    payload:  any
+    payload:  OrderType
 }
 type OrderDetailsFail={
     type: typeof import ('../constants/orderConstants').ORDER_DETAILS_FAIL
@@ -284,11 +284,11 @@ type OrderPayStateAction = | OrderPayRequest | OrderPaySuccess | OrderPayFails |
 
 type OrderPayRequest={
     type: typeof import ('../constants/orderConstants').ORDER_PAY_REQUEST
-    payload: string
+    payload?: any
 }
 type OrderPaySuccess={
     type: typeof import ('../constants/orderConstants').ORDER_PAY_SUCCESS
-    payload:  any
+    payload?: any
 }
 type OrderPayFail={
     type: typeof import ('../constants/orderConstants').ORDER_PAY_FAIL
@@ -296,18 +296,18 @@ type OrderPayFail={
 }
 type OrderPayReset={
     type: typeof import ('../constants/orderConstants').ORDER_PAY_RESET
-    payload: string
+    payload?: any
 }
 
 type OrderDeliverStateAction = | OrderDeliverRequest | OrderDeliverSuccess | OrderDeliverFails | OrderDeliverReset
 
 type OrderDeliverRequest={
     type: typeof import ('../constants/orderConstants').ORDER_DELIVER_REQUEST
-    payload: string
+    payload?: any
 }
 type OrderDeliverSuccess={
     type: typeof import ('../constants/orderConstants').ORDER_DELIVER_SUCCESS
-    payload:  any
+    payload:  OrderType
 }
 type OrderDeliverFail={
     type: typeof import ('../constants/orderConstants').ORDER_DELIVER_FAIL
@@ -315,7 +315,7 @@ type OrderDeliverFail={
 }
 type OrderDeliverReset={
     type: typeof import ('../constants/orderConstants').ORDER_DELIVER_RESET
-    payload: string
+    payload?: any
 }
 
 type OrderListMyAction = |OrderListMyRequest|OrderListMySuccess |OrderListMyFail
@@ -401,7 +401,7 @@ type UserUpdateFail={
 }
 type UserUpdateReset={
     type: typeof import ('../constants/userConstants').USER_UPDATE_RESET
-    payload: string
+    payload?: string
 }
 
 

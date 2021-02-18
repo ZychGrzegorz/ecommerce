@@ -95,7 +95,6 @@ export const payOrder =(orderId: string, paymentResult:any): ThunkAction<void, R
             }
         }
    
-        
         const {data} = await axios.put(`/api/orders/${orderId}/pay`, paymentResult, config)
        
        
@@ -114,7 +113,7 @@ export const payOrder =(orderId: string, paymentResult:any): ThunkAction<void, R
     }
 }
 
-export const deliverOrder =(order: Order): ThunkAction<void, RootState,null,OrderDeliverStateAction>=> async(dispatch, getState)=>{
+export const deliverOrder =(order: OrderType): ThunkAction<void, RootState,null,OrderDeliverStateAction>=> async(dispatch, getState)=>{
    
     try {
         dispatch({           
@@ -136,7 +135,6 @@ export const deliverOrder =(order: Order): ThunkAction<void, RootState,null,Orde
    
         
         const {data} = await axios.put(`/api/orders/${order._id}/deliver`, {}, config)
-       
        
         dispatch({
             type: ORDER_DELIVER_SUCCESS,

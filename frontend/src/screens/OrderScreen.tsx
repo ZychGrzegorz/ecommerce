@@ -4,8 +4,6 @@ import { PayPalButton } from 'react-paypal-button-v2'
 import { RouteComponentProps, Link } from 'react-router-dom'
 import { Row, Col, ListGroup, Image, Card, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import Message from '../components/Message'
-import Loader from '../components/Message'
 import { RootState } from '../store/store'
 import {
   getOrderDetails,
@@ -16,11 +14,26 @@ import {
   ORDER_PAY_RESET,
   ORDER_DELIVER_RESET,
 } from '../store/constants/orderConstants'
+import Message from '../components/Message'
+import Loader from '../components/Message'
 import Meta from '../components/Meta'
 
+type OrderDetailsType = {
+  loading: boolean
+  error: string
+  order: OrderType
+}
+type UserLoginType = {
+  userInfo: User
+}
+type orderPayType = {
+  loading: boolean
+  success: boolean
+}
 interface MatchParams {
   id: string
 }
+
 const OrderScreen = ({ match, history }: RouteComponentProps<MatchParams>) => {
   const orderId = match.params.id
 
@@ -31,29 +44,16 @@ const OrderScreen = ({ match, history }: RouteComponentProps<MatchParams>) => {
   const addDecimals = (num: number) => {
     return (Math.round(num * 100) / 100).toFixed(2)
   }
-  type OrderDetailsType = {
-    loading: boolean
-    error: string
-    order: OrderType
-  }
+
   const orderDetails: OrderDetailsType = useSelector(
     (state: RootState) => state.orderDetails
   )
   const { order, loading, error } = orderDetails
 
-  type UserLoginType = {
-    userInfo: User
-  }
-
   const userLogin: UserLoginType = useSelector(
     (state: RootState) => state.userLogin
   )
   const { userInfo } = userLogin
-
-  type orderPayType = {
-    loading: boolean
-    success: boolean
-  }
 
   const orderPay = useSelector((state: RootState) => state.orderPay)
   const { loading: loadingPay, success: successPay } = orderPay as orderPayType
@@ -108,7 +108,7 @@ const OrderScreen = ({ match, history }: RouteComponentProps<MatchParams>) => {
   }
 
   const deliverHandler = () => {
-    dispatch(deliverOrder(order as any))
+    dispatch(deliverOrder(order))
   }
 
   return loading ? (
