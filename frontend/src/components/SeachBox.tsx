@@ -4,10 +4,13 @@ import { RouteComponentProps } from 'react-router'
 
 interface MatchParams {
   history: any
+  location?: any
+  match?: any
 }
 
 interface MatchProps extends RouteComponentProps<MatchParams> {}
-const SeachBox = ({ history }: MatchProps) => {
+
+const SeachBox: React.FC<any> = ({ history }) => {
   const [keyword, setKeyword] = useState<string>('')
   const submitHandler = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault()

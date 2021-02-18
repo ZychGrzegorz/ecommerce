@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import CheckoutSteps from '../components/CheckoutSteps'
 import { RootState } from '../store/store'
-import { createOrder } from '../store/actions/orderActions'
+import { createOrder } from '../store/actions/OrderActions'
 import Meta from '../components/Meta'
 
 const PlaceOrderScreen = ({ history }: RouteComponentProps) => {

@@ -7,8 +7,8 @@ interface Product {
     brand: string,
     category: string,
     price: number,
+    rating: number,
     countInStock?: number,
-    rating?: number,
     numReviews?: number,
     reviews?: array<string>
 }
@@ -309,7 +309,7 @@ type OrderListMyAction = |OrderListMyRequest|OrderListMySuccess |OrderListMyFail
 
 type OrderListMyRequest={
     type: typeof import ('../constants/orderConstants').ORDER_LIST_MY_REQUEST
-    payload: string
+    payload?: string
 }
 type OrderListMySuccess={
     type: typeof import ('../constants/orderConstants').ORDER_LIST_MY_SUCCESS
@@ -324,7 +324,7 @@ type OrderListAction = |OrderListRequest|OrderListSuccess |OrderListFail
 
 type OrderListRequest={
     type: typeof import ('../constants/orderConstants').ORDER_LIST_REQUEST
-    payload: string
+    payload?: string
 }
 type OrderListSuccess={
     type: typeof import ('../constants/orderConstants').ORDER_LIST_SUCCESS
@@ -353,7 +353,7 @@ type UserListStateFail={
 }
 type UserListStateReset={
     type: typeof import ('../constants/userConstants').USER_LIST_RESET
-    payload: string
+    payload?: string
 }
 
 type UserDeleteAction = | UserDeleteRequest | UserDeleteSuccess | UserDeleteFail 

@@ -7,7 +7,7 @@ import { Form, Button, Row, Col, Table } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
 import { RootState } from '../store/store'
-import { listMyOrders } from '../store/actions/orderActions'
+import { listMyOrders } from '../store/actions/OrderActions'
 import { getUserDetails, updateUserProfile } from '../store/actions/userActions'
 import { USER_UPDATE_PROFILE_RESET } from '../store/constants/userConstants'
 
