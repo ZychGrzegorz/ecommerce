@@ -2,19 +2,30 @@ import React, { useEffect, useState } from 'react'
 import { Link, RouteComponentProps } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, Image, ListGroup, Card, Button, Form } from 'react-bootstrap'
-import Rating from '../components/Rating'
 import {
   listProductDetails,
   createProductReview,
 } from '../store/actions/productActions'
 import { RootState } from '../store/store'
+import { PRODUCT_CREATE_REVIEW_RESET } from '../store/constants/constants'
+import Rating from '../components/Rating'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import Meta from '../components/Meta'
-import {
-  PRODUCT_CREATE_RESET,
-  PRODUCT_CREATE_REVIEW_RESET,
-} from '../store/constants/constants'
+
+type ProductReviewDetails = {
+  success: boolean
+  error: string
+}
+type ProductDetailsType = {
+  product: Product & { numReviews: Array<number> }
+  loading: boolean
+  error: string
+}
+
+type userLoginType = {
+  userInfo: User
+}
 
 interface MatchParams {
   id: string
@@ -22,26 +33,15 @@ interface MatchParams {
 
 interface MatchProps extends RouteComponentProps<MatchParams> {}
 
-const ProductScreen = ({ history, match }: MatchProps) => {
+const ProductScreen: React.FC<MatchProps> = ({ history, match }) => {
   const [qty, setQty] = useState<number>(1)
   const [rating, setRating] = useState<number>(0)
   const [comment, setComment] = useState<string>('')
 
   const dispatch = useDispatch()
 
-  type ProductDetailsType = {
-    product: (Product & { numReviews: Array<number> }) | null
-    loading: boolean
-    error: string
-  }
-
   const productDetails = useSelector((state: RootState) => state.productDetails)
   const { loading, error, product } = productDetails as ProductDetailsType
-
-  type ProductReviewDetails = {
-    success: boolean
-    error: string
-  }
 
   const productReviewCreate: ProductReviewDetails = useSelector(
     (state: RootState) => state.productReviewCreate
@@ -51,9 +51,6 @@ const ProductScreen = ({ history, match }: MatchProps) => {
     error: errorProductReview,
   } = productReviewCreate
 
-  type userLoginType = {
-    userInfo: User
-  }
   const userLogin: userLoginType = useSelector(
     (state: RootState) => state.userLogin
   )

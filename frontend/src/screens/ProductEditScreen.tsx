@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from 'axios'
+import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import { Link, RouteComponentProps } from 'react-router-dom'
 import { Form, Button } from 'react-bootstrap'
@@ -67,6 +67,10 @@ const ProductEditScreen: React.FC<MatchProps> = ({ match, history }) => {
       }
     }
   }, [dispatch, history, productId, product, successUpdate])
+
+  interface HTMLInputEvent extends Event {
+    target: HTMLInputElement & EventTarget
+  }
 
   const uploadFileHandler = async (e: any, type: string) => {
     const file: File = e.target.files[0]
