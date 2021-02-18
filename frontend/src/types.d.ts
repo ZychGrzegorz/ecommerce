@@ -71,6 +71,16 @@ type CartState = {
     paidAt: string
 }
 
+type CreteOrder={
+    orderItems: Array<CartItem>
+    shippingAddress: shippingAddressType
+    paymentMethod: string
+    itemsPrice: number
+    shippingPrice: number
+    taxPrice: number
+    totalPrice: number
+}
+
 // type orderDetailsType = {
 //     order: CartState & {
 //       _id: string

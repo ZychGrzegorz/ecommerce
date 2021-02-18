@@ -4,7 +4,7 @@ import { ThunkAction } from "redux-thunk"
 import { RootState } from "../store"
 
 
-export const createOrder =(order: OrderType): ThunkAction<void, RootState,null,OrderCreateStateAction>=> async(dispatch, getState)=>{
+export const createOrder =(order: CreteOrder): ThunkAction<void, RootState,null,OrderCreateStateAction>=> async(dispatch, getState)=>{
    
     try {
         dispatch({
