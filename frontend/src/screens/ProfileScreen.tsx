@@ -11,6 +11,20 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 import Meta from '../components/Meta'
 
+type UserDetailsType = {
+  loading: boolean
+  error: string
+  user: User
+}
+
+type UserLoginType = {
+  userInfo: User
+}
+
+type UserUpdateProfileType = {
+  success: boolean
+}
+
 const ProfileScreen: React.FC<RouteComponentProps> = ({ history }) => {
   const [name, setName] = useState<string>('')
   const [email, setEmail] = useState<string>('')
@@ -20,21 +34,17 @@ const ProfileScreen: React.FC<RouteComponentProps> = ({ history }) => {
 
   const dispatch = useDispatch()
 
-  type userDetailsType = {
-    loading: boolean
-    error: string
-    user: User
-  }
-  const userDetails = useSelector((state: RootState) => state.userDetails)
-  const { loading, error, user } = userDetails as userDetailsType
+  const userDetails: UserDetailsType = useSelector(
+    (state: RootState) => state.userDetails
+  )
+  const { loading, error, user } = userDetails
 
-  type userLoginType = {
-    userInfo: User
-  }
-  const userLogin = useSelector((state: RootState) => state.userLogin)
-  const { userInfo } = userLogin as userLoginType
+  const userLogin: UserLoginType = useSelector(
+    (state: RootState) => state.userLogin
+  )
+  const { userInfo } = userLogin
 
-  const userUpdateProfile = useSelector(
+  const userUpdateProfile: UserUpdateProfileType = useSelector(
     (state: RootState) => state.userUpdateProfile
   )
   const { success } = userUpdateProfile
@@ -144,7 +154,7 @@ const ProfileScreen: React.FC<RouteComponentProps> = ({ history }) => {
                 <tr key={order._id}>
                   <td>{order._id}</td>
                   <td>{order.createdAt.substring(0, 10)}</td>
-                  <td>{order.totalPrice}</td>
+                  <td>{order.totalPrice}&nbsp;€</td>
                   <td>
                     {order.isPaid ? (
                       order.paidAt.substring(0, 10)

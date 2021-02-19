@@ -74,19 +74,14 @@ export const userRegisterReducer = (state: UserRegisterState = userRegisterIniti
 }
 
 type UserDetailsState = {
-    user: User,
     loading: boolean,
+    user?: User | object,
     success?: boolean,
     error?: string,
 }
 
 const UserDetailsInitialState = {
-    user:{
-        _id: '',
-        isAdmin: false,
-        name: '',
-        email: '',          
-    }, 
+    user:{}, 
     loading:false
 }
 
@@ -94,6 +89,7 @@ export const userDetailsReducer = (state: UserDetailsState = UserDetailsInitialS
     switch(action.type){
         case USER_DETAILS_REQUEST:
             return {
+                ...state,
                 loading: true, 
                }
         case USER_DETAILS_SUCCESS:
@@ -115,14 +111,14 @@ export const userDetailsReducer = (state: UserDetailsState = UserDetailsInitialS
     }
 }
 type UserUpdateProfileState = {
-    userInfo: {_id: string}
+    userInfo?: User,
     loading?: boolean,
     success?: boolean,
     error?: string,
     
 }
 
-export const userUpdateProfileReducer = (state: UserUpdateProfileState = {userInfo: {_id: '' }}, action: UserUpdateProfileAction)=>{
+export const userUpdateProfileReducer = (state: UserUpdateProfileState = {}, action: UserUpdateProfileAction)=>{
     switch(action.type){
         case USER_UPDATE_PROFILE_REQUEST:
             return {
@@ -201,13 +197,13 @@ export const userDeleteReducer = (state: UserDeleteState = {}, action: UserDelet
 }
 
 type UserUpdateState = {
-    user: Array<User>
+    user?: any
     loading?: boolean
     success?:boolean
     error?:string
 }
 
-export const userUpdateReducer = (state: UserUpdateState = {user:[]}, action: UserUpdateAction)=>{
+export const userUpdateReducer = (state: UserUpdateState = {user:{}}, action: UserUpdateAction)=>{
     switch(action.type){
         case USER_UPDATE_REQUEST:
             return {
@@ -225,7 +221,7 @@ export const userUpdateReducer = (state: UserUpdateState = {user:[]}, action: Us
             }   
         case USER_UPDATE_RESET:
             return {
-                user:[]
+                user:{}
             }
         default:
             return state

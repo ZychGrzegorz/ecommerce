@@ -8,6 +8,7 @@ import { RouteComponentProps } from 'react-router-dom'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import Meta from '../components/Meta'
+import { ORDER_DETAILS_RESET } from '../store/constants/orderConstants'
 
 type orderListType = {
   loading: boolean
@@ -32,6 +33,7 @@ const OrderListScreen: React.FC<RouteComponentProps> = ({ history }) => {
   const { userInfo } = userLogin
 
   useEffect(() => {
+    dispatch({ type: ORDER_DETAILS_RESET })
     if (userInfo && userInfo.isAdmin) {
       dispatch(listOrders())
     } else {

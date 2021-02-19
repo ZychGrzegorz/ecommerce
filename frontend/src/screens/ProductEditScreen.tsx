@@ -68,10 +68,6 @@ const ProductEditScreen: React.FC<MatchProps> = ({ match, history }) => {
     }
   }, [dispatch, history, productId, product, successUpdate])
 
-  interface HTMLInputEvent extends Event {
-    target: HTMLInputElement & EventTarget
-  }
-
   const uploadFileHandler = async (e: any, type: string) => {
     const file: File = e.target.files[0]
     const formData = new FormData()
@@ -162,7 +158,9 @@ const ProductEditScreen: React.FC<MatchProps> = ({ match, history }) => {
                 id='image-file'
                 label='Choose File'
                 custom
-                onChange={(e: any) => uploadFileHandler(e, 'normal')}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  uploadFileHandler(e, 'normal')
+                }
               ></Form.File>
               {uploading && <Loader />}
             </Form.Group>
@@ -179,7 +177,9 @@ const ProductEditScreen: React.FC<MatchProps> = ({ match, history }) => {
                 id='image-file'
                 label='Choose File'
                 custom
-                onChange={(e: any) => uploadFileHandler(e, 'min')}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  uploadFileHandler(e, 'min')
+                }
               ></Form.File>
               {uploading && <Loader />}
             </Form.Group>

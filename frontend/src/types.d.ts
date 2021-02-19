@@ -189,11 +189,11 @@ type CartActions = | CartAddItem | CartRemoveItem | CartSaveShippingAddress | Ca
 
 type UserLoginRequest={
     type: typeof import ('../constants/userConstants').USER_LOGIN_REQUEST
-    payload?: string
+    payload?: any
 }
 type UserLoginSuccess={
     type: typeof import ('../constants/userConstants').USER_LOGIN_SUCCESS
-    payload:  any
+    payload:  User
 }
 type UserLoginFail={
     type: typeof import ('../constants/userConstants').USER_LOGIN_FAIL
@@ -201,11 +201,10 @@ type UserLoginFail={
 }
 type UserLogout={
     type: typeof import ('../constants/userConstants').USER_LOGOUT
-    payload: any
+    payload?: any
 }
 
 type UserAction = | UserLoginRequest | UserLoginSuccess | UserLoginFail | UserLogout
-
 
 
 type UserRegisterRequest={
@@ -214,7 +213,7 @@ type UserRegisterRequest={
 }
 type UserRegisterSuccess={
     type: typeof import ('../constants/userConstants').USER_REGISTER_SUCCESS
-    payload:  any
+    payload:  User
 }
 type UserRegisterFail={
     type: typeof import ('../constants/userConstants').USER_REGISTER_FAIL
@@ -222,7 +221,7 @@ type UserRegisterFail={
 }
 
 
-type UserRegisterAction = | UserRegisterRequest | UserRegisterSuccess | UserRegisterFail
+type UserRegisterAction = | UserRegisterRequest | UserRegisterSuccess | UserRegisterFail | UserLoginSuccess
 
 type UserDetailsRequest={
     type: typeof import ('../constants/userConstants').USER_DETAILS_REQUEST
@@ -230,7 +229,7 @@ type UserDetailsRequest={
 }
 type UserDetailsSuccess={
     type: typeof import ('../constants/userConstants').USER_DETAILS_SUCCESS
-    payload:  any
+    payload:  User
 }
 type UserDetailsFail={
     type: typeof import ('../constants/userConstants').USER_DETAILS_FAIL
@@ -245,14 +244,14 @@ type UserUpdateStateRequest={
 }
 type UserUpdateStateSuccess={
     type: typeof import ('../constants/userConstants').USER_UPDATE_STATE_SUCCESS
-    payload:  any
+    payload:  User
 }
 type UserUpdateStateFail={
     type: typeof import ('../constants/userConstants').USER_UPDATE_STATE_FAIL
     payload: string
 }
 
-type UserUpdateStateAction = | UserUpdateStateRequest | UserUpdateStateSuccess | UserUpdateStateFail
+type UserUpdateStateAction = | UserUpdateStateRequest | UserUpdateStateSuccess | UserUpdateStateFail | UserLoginSuccess
 
 
 
@@ -262,7 +261,7 @@ type OrderCreateRequest={
 }
 type OrderCreateSuccess={
     type: typeof import ('../constants/orderConstants').ORDER_CREATE_SUCCESS
-    payload:  any
+    payload:  User
 }
 type OrderCreateFail={
     type: typeof import ('../constants/orderConstants').ORDER_CREATE_FAIL
@@ -328,7 +327,7 @@ type OrderDeliverReset={
     payload?: any
 }
 
-type OrderListMyAction = |OrderListMyRequest|OrderListMySuccess |OrderListMyFail
+type OrderListMyAction = | OrderListMyRequest | OrderListMySuccess | OrderListMyFail | OrderListMyReset
 
 type OrderListMyRequest={
     type: typeof import ('../constants/orderConstants').ORDER_LIST_MY_REQUEST
@@ -336,11 +335,15 @@ type OrderListMyRequest={
 }
 type OrderListMySuccess={
     type: typeof import ('../constants/orderConstants').ORDER_LIST_MY_SUCCESS
-    payload:  any
+    payload:  Array<OrderType>
 }
 type OrderListMyFail={
     type: typeof import ('../constants/orderConstants').ORDER_LIST_MY_FAIL
     payload: string
+}
+type OrderListMyReset={
+    type: typeof import ('../constants/orderConstants').ORDER_LIST_MY_RESET
+    payload?: any 
 }
 
 type OrderListAction = |OrderListRequest|OrderListSuccess |OrderListFail
@@ -368,7 +371,7 @@ type UserListStateRequest={
 }
 type UserListStateSuccess={
     type: typeof import ('../constants/userConstants').USER_LIST_SUCCESS
-    payload:  any
+    payload:  Array<User>
 }
 type UserListStateFail={
     type: typeof import ('../constants/userConstants').USER_LIST_FAIL
@@ -383,11 +386,11 @@ type UserDeleteAction = | UserDeleteRequest | UserDeleteSuccess | UserDeleteFail
 
 type UserDeleteRequest={
     type: typeof import ('../constants/userConstants').USER_DELETE_REQUEST
-    payload?: string
+    payload?: any
 }
 type UserDeleteSuccess={
     type: typeof import ('../constants/userConstants').USER_DELETE_SUCCESS
-    payload:  any
+    payload?:  any
 }
 type UserDeleteFail={
     type: typeof import ('../constants/userConstants').USER_DELETE_FAIL
@@ -403,7 +406,7 @@ type UserUpdateRequest={
 }
 type UserUpdateSuccess={
     type: typeof import ('../constants/userConstants').USER_UPDATE_SUCCESS
-    payload:  any
+    payload:  User
 }
 type UserUpdateFail={
     type: typeof import ('../constants/userConstants').USER_UPDATE_FAIL
