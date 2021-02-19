@@ -2,6 +2,7 @@ import {ORDER_CREATE_REQUEST, ORDER_CREATE_SUCCESS, ORDER_CREATE_FAIL, ORDER_DET
 import axios from "axios"
 import { ThunkAction } from "redux-thunk"
 import { RootState } from "../store"
+import { CART_RESET } from '../constants/cartConstants'
 
 
 export const createOrder =(order: CreteOrder): ThunkAction<void, RootState,null,OrderCreateStateAction>=> async(dispatch, getState)=>{
@@ -28,14 +29,15 @@ export const createOrder =(order: CreteOrder): ThunkAction<void, RootState,null,
             type: ORDER_CREATE_SUCCESS,
             payload: data
         })
+        dispatch({
+            type: CART_RESET
+        })
         
     } catch (error) {
             dispatch({
                 type: ORDER_CREATE_FAIL,
                 payload: error.response && error.response.data.message ? error.response.data.message : error.message,
-            })
-        
-        
+            })        
     }
 }
 

@@ -28,12 +28,10 @@ switch(action.type){
             loading: false,
             error: action.payload,
         }
-        default: 
+    default: 
         return state
+    }
 }
-}
-
-
 
 type OrderDetailsState={
     loading: boolean
@@ -123,7 +121,7 @@ export const orderDetailsReducer = (state: OrderDetailsState=initialOrderDetails
                     }
                 case ORDER_DELIVER_RESET:
                     return{}
-                    default: 
+                default: 
                     return state
             }
             }
@@ -132,7 +130,7 @@ export const orderDetailsReducer = (state: OrderDetailsState=initialOrderDetails
             orders:[]
         }
 
-        export const orderListMyReducer = (state: any = initialOrderListMyState, action: OrderListMyAction)=>{
+        export const orderListMyReducer = (state: {orders:Array<OrderType>} = initialOrderListMyState, action: OrderListMyAction)=>{
             switch(action.type){
                 case ORDER_LIST_MY_REQUEST:
                     return {
@@ -164,7 +162,7 @@ export const orderDetailsReducer = (state: OrderDetailsState=initialOrderDetails
                 orders:[]
             }
         
-            export const orderListReducer = (state: any = initialOrderListState, action: OrderListAction)=>{
+            export const orderListReducer = (state: {orders:Array<OrderType>} = initialOrderListState, action: OrderListAction)=>{
                 switch(action.type){
                     case ORDER_LIST_REQUEST:
                         return {
@@ -183,7 +181,6 @@ export const orderDetailsReducer = (state: OrderDetailsState=initialOrderDetails
                             loading: false,
                             error: action.payload,
                         }
-                  
                     default: 
                         return state
                 }

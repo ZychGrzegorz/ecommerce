@@ -5,6 +5,7 @@ import { Row, Col } from 'react-bootstrap'
 import { listProducts } from '../store/actions/productActions'
 import { RootState } from '../store/store'
 import { RouteComponentProps } from 'react-router-dom'
+import { ORDER_DETAILS_RESET } from '../store/constants/orderConstants'
 import Product from '../components/Product'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
@@ -40,7 +41,9 @@ const HomeScreen: React.FC<MatchProps> = ({ match }) => {
   useEffect(() => {
     dispatch(listProducts(keyword, pageNumber))
   }, [dispatch, keyword, pageNumber])
-
+  useEffect(() => {
+    dispatch({ type: ORDER_DETAILS_RESET })
+  }, [])
   return (
     <>
       <Meta />

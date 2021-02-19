@@ -81,35 +81,6 @@ type CreteOrder={
     totalPrice: number
 }
 
-// type orderDetailsType = {
-//     order: CartState & {
-//       _id: string
-//       orderItems: CartItem[]
-//       user: { email: string; name: string }
-//       isPaid: boolean
-//       paidAt: Date
-//       isDelivered: boolean
-//       deliveredAt: Date
-//       totalPrice: number
-//       itemsprice: any,
-//     }
-//     loading?: boolean
-//     error?: string
-//   }
-
-// type Order = CartState & {
-//     _id: string
-//     orderItems: CartItem[],
-//     user: { email: string; name: string }
-//     isPaid: boolean
-//     paidAt: string
-//     isDelivered: boolean
-//     deliveredAt: string
-//     createdAt: string
-//     totalPrice: number}
-
-
-
 type ProductListRequest={
     type: typeof import ('./store/constants').PRODUCT_LIST_REQUEST
     payload?: any 
@@ -128,7 +99,7 @@ type ProductListFail={
     payload: string
 }
 
-type ProductAction = | ProductListRequest|ProductListSucces|ProductListFail
+type ProductAction = | ProductListRequest | ProductListSucces | ProductListFail
 
 type ProductDetailsRequest={
     type: typeof import ('./store/constants').PRODUCT_DETAILS_REQUEST
@@ -137,14 +108,14 @@ type ProductDetailsRequest={
 
 type ProductDetailsSucces={
     type: typeof import ('./store/constants').PRODUCT_DETAILS_SUCCESS
-    payload:  any
+    payload: Product
 }
 type ProductDetailsFail={
     type: typeof import ('./store/constants').PRODUCT_DETAILS_FAIL
-    payload: any
+    payload: string
 }
 
-type ProductDetailsAction = | ProductDetailsRequest|ProductDetailsSucces|ProductDetailsFail
+type ProductDetailsAction = | ProductDetailsRequest | ProductDetailsSucces | ProductDetailsFail
 
 type UserUpdateProfileRequest={
     type: typeof import ('./store/constants/userConstants').USER_UPDATE_PROFILE_REQUEST
@@ -163,7 +134,7 @@ type UserUpdateProfileReset={
     type: typeof import ('./store/constants/userConstants').USER_UPDATE_PROFILE_RESET
     payload: string
 }
-type UserUpdateProfileAction = | UserUpdateProfileRequest  | UserUpdateProfileSucces | UserUpdateProfileFail | UserUpdateProfileReset
+type UserUpdateProfileAction = | UserUpdateProfileRequest  | UserUpdateProfileSucces | UserUpdateProfileFail | UserUpdateProfileReset | CartReset
 
 type CartAddItem={
     type: typeof import ('./store/constants/cartConstants').CART_ADD_ITEM
@@ -182,10 +153,12 @@ type CartSavePaymentMethod={
     type: typeof import ('./store/constants/cartConstants').CART_SAVE_PAYMENT_METHOD
     payload: string
 }
+type CartReset={
+    type: typeof import ('./store/constants/cartConstants').CART_RESET
+    payload: string
+}
 
-type CartActions = | CartAddItem | CartRemoveItem | CartSaveShippingAddress | CartSavePaymentMethod
-
-
+type CartActions = | CartAddItem | CartRemoveItem | CartSaveShippingAddress | CartSavePaymentMethod | CartReset
 
 type UserLoginRequest={
     type: typeof import ('../constants/userConstants').USER_LOGIN_REQUEST
@@ -204,7 +177,7 @@ type UserLogout={
     payload?: any
 }
 
-type UserAction = | UserLoginRequest | UserLoginSuccess | UserLoginFail | UserLogout
+type UserAction = | UserLoginRequest | UserLoginSuccess | UserLoginFail | UserLogout | CartReset
 
 
 type UserRegisterRequest={
@@ -268,9 +241,7 @@ type OrderCreateFail={
     payload: string
 }
 
-type OrderCreateStateAction = | OrderCreateRequest | OrderCreateSuccess | OrderCreateFail
-
-
+type OrderCreateStateAction = | OrderCreateRequest | OrderCreateSuccess | OrderCreateFail | CartReset
 
 type OrderDetailsStateAction = | OrderDetailsRequest | OrderDetailsSuccess | OrderDetailsFails
 
@@ -286,8 +257,6 @@ type OrderDetailsFail={
     type: typeof import ('../constants/orderConstants').ORDER_DETAILS_FAIL
     payload: string
 }
-
-
 
 type OrderPayStateAction = | OrderPayRequest | OrderPaySuccess | OrderPayFails | OrderPayReset
 
@@ -346,7 +315,7 @@ type OrderListMyReset={
     payload?: any 
 }
 
-type OrderListAction = |OrderListRequest|OrderListSuccess |OrderListFail
+type OrderListAction = | OrderListRequest | OrderListSuccess | OrderListFail
 
 type OrderListRequest={
     type: typeof import ('../constants/orderConstants').ORDER_LIST_REQUEST
@@ -360,8 +329,6 @@ type OrderListFail={
     type: typeof import ('../constants/orderConstants').ORDER_LIST_FAIL
     payload: string
 }
-
-
     
 type UserListAction = | UserListStateRequest | UserListStateSuccess | UserListStateFail | UserListStateReset
 
@@ -465,7 +432,7 @@ type ProductUpdateRequest={
 }
 type ProductUpdateSuccess={
     type: typeof import ('../constants/constants').PRODUCT_UPDATE_SUCCESS
-    payload:  any
+    payload: Product
 }
 type ProductUpdateFail={
     type: typeof import ('../constants/constants').PRODUCT_UPDATE_FAIL

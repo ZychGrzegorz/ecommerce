@@ -181,7 +181,7 @@ const OrderScreen = ({ match, history }: RouteComponentProps<MatchParams>) => {
                         </Col>
                         <Col md={4}>
                           {item.qty} x {item.price}&nbsp;€ ={' '}
-                          {item.qty * item.price}
+                          {parseFloat((item.qty * item.price).toFixed(2))}
                           &nbsp;€
                         </Col>
                       </Row>

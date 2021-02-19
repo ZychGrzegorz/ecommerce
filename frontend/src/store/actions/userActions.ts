@@ -6,6 +6,7 @@ import {ORDER_LIST_MY_RESET} from '../constants/orderConstants'
 import { RootState } from "../store"
 
 
+
 export const login =(email: string, password:string): ThunkAction<void, RootState,null,UserAction>=> async(dispatch)=>{
     try {
         dispatch({
@@ -22,6 +23,7 @@ export const login =(email: string, password:string): ThunkAction<void, RootStat
             type: USER_LOGIN_SUCCESS,
             payload: data
         })
+      
 
         localStorage.setItem('userInfo', JSON.stringify(data))
 
