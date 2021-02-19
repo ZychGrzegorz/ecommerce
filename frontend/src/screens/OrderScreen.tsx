@@ -13,6 +13,7 @@ import {
 import {
   ORDER_PAY_RESET,
   ORDER_DELIVER_RESET,
+  ORDER_CREATE_RESET,
 } from '../store/constants/orderConstants'
 import Message from '../components/Message'
 import Loader from '../components/Message'
@@ -78,6 +79,7 @@ const OrderScreen = ({ match, history }: RouteComponentProps<MatchParams>) => {
     if (!userInfo) {
       history.push('/login')
     }
+    dispatch({ type: ORDER_CREATE_RESET })
     const addPayPalScript = async () => {
       const { data: clientId } = await axios.get('/api/config/paypal')
       const script = document.createElement('script')

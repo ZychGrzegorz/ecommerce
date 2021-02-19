@@ -1,99 +1,4 @@
-interface Product {
-    _id: string,
-    name: string,
-    image?: string,
-    imageMin?: string,
-    description:string,
-    brand: string,
-    category: string,
-    price: number,
-    rating: number,
-    countInStock?: number,
-    numReviews?: number,
-    reviews?: array<string>
-}
 
-type User = {
-    email: string,
-    name: string,
-    id?: string,
-    _id?: string,
-    password?: string,
-    isAdmin?: boolean,
-    token?: string,
-}
-
-type CartItem = {
-    product: string,
-    name: string,
-    image: string,
-    price: number,
-    countInStock: number,
-    qty: number,
-}
-
-type shippingAddressType={ 
-    address: string, 
-    city: string, 
-    postalCode:string,
-    country: string
-}
-type CartState = {
-    cartItems: CartItem[]
-    shippingAddress: shippingAddressType
-    paymentMethod: string
-    itemsPrice?: number|null|string
-    shippingPrice?: number|null|string
-    taxPrice?: number|null|string
-    totalPrice?: number|null|string
-  }
-
-  type OrderType={
-    shippingAddress: shippingAddressType,
-    taxPrice:number,
-    shippingPrice: number,
-    totalPrice: number,
-    isPaid: boolean,
-    isDelivered: boolean,
-    _id: string
-    orderItems: Array<CartItem>,
-    user:{
-        _id: string,
-        email: string,
-        name: string
-    }
-    paymentMethod: string,
-    itemsPrice: number,
-    createdAt: string,
-    updatedAt: string,
-    itemsPrice: string,
-    deliveredAt: string
-    paidAt: string
-}
-
-type CreteOrder={
-    orderItems: Array<CartItem>
-    shippingAddress: shippingAddressType
-    paymentMethod: string
-    itemsPrice: number
-    shippingPrice: number
-    taxPrice: number
-    totalPrice: number
-}
-
-type ProductListRequest={
-    type: typeof import ('./store/constants').PRODUCT_LIST_REQUEST
-    payload?: any 
-    }
-
-type ProductListSucces={
-    type: typeof import ('./store/constants').PRODUCT_LIST_SUCCESS
-    payload:  {
-        products: Array<Product>,
-        pages: string, 
-        page: string 
-    }
-}
 type ProductListFail={
     type: typeof import ('./store/constants').PRODUCT_LIST_FAIL
     payload: string
@@ -118,43 +23,43 @@ type ProductDetailsFail={
 type ProductDetailsAction = | ProductDetailsRequest | ProductDetailsSucces | ProductDetailsFail
 
 type UserUpdateProfileRequest={
-    type: typeof import ('./store/constants/userConstants').USER_UPDATE_PROFILE_REQUEST
+    type: typeof import ('../store/constants/userConstants').USER_UPDATE_PROFILE_REQUEST
     payload?: string 
     }
 
 type UserUpdateProfileSucces={
-    type: typeof import ('./store/constants/userConstants').USER_UPDATE_PROFILE_SUCCESS
+    type: typeof import ('../store/constants/userConstants').USER_UPDATE_PROFILE_SUCCESS
     payload:  Product[]
 }
 type UserUpdateProfileFail={
-    type: typeof import ('./store/constants/userConstants').USER_UPDATE_PROFILE_FAIL
+    type: typeof import ('../store/constants/userConstants').USER_UPDATE_PROFILE_FAIL
     payload: string
 }
 type UserUpdateProfileReset={
-    type: typeof import ('./store/constants/userConstants').USER_UPDATE_PROFILE_RESET
+    type: typeof import ('../store/constants/userConstants').USER_UPDATE_PROFILE_RESET
     payload: string
 }
 type UserUpdateProfileAction = | UserUpdateProfileRequest  | UserUpdateProfileSucces | UserUpdateProfileFail | UserUpdateProfileReset | CartReset
 
 type CartAddItem={
-    type: typeof import ('./store/constants/cartConstants').CART_ADD_ITEM
+    type: typeof import ('../store/constants/cartConstants').CART_ADD_ITEM
     payload: CartItem
 }
 type CartRemoveItem={
-    type: typeof import ('./store/constants/cartConstants').CART_REMOVE_ITEM
+    type: typeof import ('../store/constants/cartConstants').CART_REMOVE_ITEM
     payload: string
 }
 
 type CartSaveShippingAddress={
-    type: typeof import ('./store/constants/cartConstants').CART_SAVE_SHIPPING_ADDRESS
+    type: typeof import ('../store/constants/cartConstants').CART_SAVE_SHIPPING_ADDRESS
     payload: string
 }
 type CartSavePaymentMethod={
-    type: typeof import ('./store/constants/cartConstants').CART_SAVE_PAYMENT_METHOD
+    type: typeof import ('../store/constants/cartConstants').CART_SAVE_PAYMENT_METHOD
     payload: string
 }
 type CartReset={
-    type: typeof import ('./store/constants/cartConstants').CART_RESET
+    type: typeof import ('../store/constants/cartConstants').CART_RESET
     payload: string
 }
 
@@ -240,8 +145,12 @@ type OrderCreateFail={
     type: typeof import ('../constants/orderConstants').ORDER_CREATE_FAIL
     payload: string
 }
+type OrderCreateReset={
+    type: typeof import ('../constants/orderConstants').ORDER_CREATE_RESET
+    payload?: any
+}
 
-type OrderCreateStateAction = | OrderCreateRequest | OrderCreateSuccess | OrderCreateFail | CartReset
+type OrderCreateStateAction = | OrderCreateRequest | OrderCreateSuccess | OrderCreateFail | CartReset | OrderCreateReset
 
 type OrderDetailsStateAction = | OrderDetailsRequest | OrderDetailsSuccess | OrderDetailsFails
 
