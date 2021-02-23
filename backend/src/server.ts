@@ -11,6 +11,7 @@ import orderRoutes from './routes/orderRoutes.js'
 import uploadRoutes from './routes/uploadRoutes.js'
 import {notFound, errorHandler} from './middleware/errorMidleware.js'
 
+
 const col=colors
 
 dotenv.config()
@@ -24,9 +25,7 @@ if(process.env.NODE_ENV==='development'){
     app.use(morgan('dev'))
 }
 
-app.get('/',(req:Request,res:Response)=>{
-    res.send('API is running...')
-})
+
 
 app.use('/api/products', productRoutes)
 app.use('/api/users', userRoutes)
@@ -37,11 +36,18 @@ app.get('/api/config/paypal',(req: Request, res: Response)=> res.send(process.en
 
 const __dirname = path.resolve()
 
+app.use('/uploads', express.static(path.join(__dirname,'/uploads')))
+
 if(process.env.NODE_ENV==='production'){
     app.use(express.static(path.join(__dirname,'/frontend/build')))
+
+    app.get('*', (req: Request, res: Response)=> res.sendFile(path.resolve(__dirname, 'fronted','build','index.html')))
+} else {
+app.get('/',(req:Request,res:Response)=>{
+    res.send('API is running...')
+})
 }
 
-app.use('/uploads', express.static(path.join(__dirname,'/uploads')))
 
 app.use(notFound)
 

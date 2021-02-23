@@ -17,19 +17,22 @@ app.use(express.json());
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
 }
-app.get('/', function (req, res) {
-    res.send('API is running...');
-});
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/upload', uploadRoutes);
 app.get('/api/config/paypal', function (req, res) { return res.send(process.env.PAYPAL_CLIENT_ID); });
 var __dirname = path.resolve();
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '/frontend/build')));
+    app.get('*', function (req, res) { return res.sendFile(path.resolve(__dirname, 'fronted', 'build', 'index.html')); });
 }
-app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+else {
+    app.get('/', function (req, res) {
+        res.send('API is running...');
+    });
+}
 app.use(notFound);
 app.use(errorHandler);
 var PORT = process.env.PORT || 5000;

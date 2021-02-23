@@ -24,6 +24,11 @@ type UserLoginType = {
 type UserUpdateProfileType = {
   success: boolean
 }
+type OrderListMyType = {
+  orders: Array<OrderType>
+  loading: boolean
+  error: string
+}
 
 const ProfileScreen: React.FC<RouteComponentProps> = ({ history }) => {
   const [name, setName] = useState<string>('')
@@ -49,7 +54,9 @@ const ProfileScreen: React.FC<RouteComponentProps> = ({ history }) => {
   )
   const { success } = userUpdateProfile
 
-  const orderListMy = useSelector((state: RootState) => state.orderListMy)
+  const orderListMy: OrderListMyType = useSelector(
+    (state: RootState) => state.orderListMy
+  )
   const { loading: loadingOrders, error: errorOrders, orders } = orderListMy
 
   useEffect(() => {

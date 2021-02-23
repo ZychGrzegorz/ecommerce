@@ -130,11 +130,18 @@ export const orderDetailsReducer = (state: OrderDetailsState=initialOrderDetails
             }
             }
       
+            type OrderListMyType = {
+                orders:Array<OrderType>
+                loading: boolean,
+                error: string
+            }
         const initialOrderListMyState={
-            orders:[]
+            orders:[],
+            loading: false,
+            error: ''
         }
 
-        export const orderListMyReducer = (state: {orders:Array<OrderType>} = initialOrderListMyState, action: OrderListMyAction)=>{
+        export const orderListMyReducer = (state:OrderListMyType  = initialOrderListMyState, action: OrderListMyAction)=>{
             switch(action.type){
                 case ORDER_LIST_MY_REQUEST:
                     return {
@@ -162,11 +169,18 @@ export const orderDetailsReducer = (state: OrderDetailsState=initialOrderDetails
             }
             }
 
+            type OrderListType={
+                orders: Array<OrderType>
+                loading: boolean
+                error: string
+            }
             const initialOrderListState={
-                orders:[]
+                orders:[],
+                loading: false,
+                error: ''
             }
         
-            export const orderListReducer = (state: {orders:Array<OrderType>} = initialOrderListState, action: OrderListAction)=>{
+            export const orderListReducer = (state:OrderListType = initialOrderListState, action: OrderListAction)=>{
                 switch(action.type){
                     case ORDER_LIST_REQUEST:
                         return {

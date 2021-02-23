@@ -13,7 +13,7 @@ instrukcje.md
 /coverage
 
 # production
-
+/frontend/build
 
 # misc
 .DS_Store

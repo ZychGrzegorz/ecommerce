@@ -2,9 +2,9 @@ import axios from 'axios'
 import {CART_ADD_ITEM, CART_REMOVE_ITEM, CART_SAVE_SHIPPING_ADDRESS, CART_SAVE_PAYMENT_METHOD} from '../constants/cartConstants'
 import {ThunkAction} from 'redux-thunk'
 import {RootState} from '../store'
-import{Action,Dispatch} from 'redux'
+import {Dispatch} from 'redux'
 
-export const addToCart = (id:string,qty:number): ThunkAction<void, RootState,null,CartAddItem> => async (dispatch, getState)=>{
+export const addToCart = (id:string,qty:number): ThunkAction<void, RootState,null,CartAddItem> => async (dispatch: Dispatch, getState: any)=>{
 const {data} = await axios.get(`/api/products/${id}`)
 dispatch({
     type: CART_ADD_ITEM,
@@ -20,7 +20,7 @@ dispatch({
 localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
 } 
 
-export const removeFromCart=(id:string)=>(dispatch:Dispatch, getState: ()=>RootState)=>{
+export const removeFromCart=(id:string)=>(dispatch:Dispatch, getState: any)=>{
     dispatch({
         type: CART_REMOVE_ITEM,
         payload: id

@@ -11,9 +11,9 @@ import Meta from '../components/Meta'
 import { ORDER_DETAILS_RESET } from '../store/constants/orderConstants'
 
 type orderListType = {
+  orders: Array<OrderType>
   loading: boolean
   error: string
-  orders: Array<OrderType>
 }
 type userLoginType = {
   userInfo: User
