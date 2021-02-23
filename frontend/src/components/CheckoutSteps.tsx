@@ -1,6 +1,7 @@
 import React from 'react'
 import { Nav } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
+
 type CheckoutProps = {
   step1: any
   step2: any

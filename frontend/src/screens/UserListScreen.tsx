@@ -1,25 +1,45 @@
 import React, { useEffect } from 'react'
-
 import { LinkContainer } from 'react-router-bootstrap'
 import { Table, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import Message from '../components/Message'
-import Loader from '../components/Loader'
 import { RootState } from '../store/store'
 import { listUsers, deleteUser } from '../store/actions/userActions'
 import { RouteComponentProps } from 'react-router-dom'
 import Meta from '../components/Meta'
+import Message from '../components/Message'
+import Loader from '../components/Loader'
 
-const UserListScreen = ({ history }: RouteComponentProps) => {
+type UserListType = {
+  loading: boolean
+  error: string
+  users: Array<User>
+}
+type UserLoginType = {
+  userInfo: User
+}
+
+type UserDeleteType = {
+  success?: boolean
+  loading?: boolean
+  error?: string
+}
+
+const UserListScreen: React.FC<RouteComponentProps> = ({ history }) => {
   const dispatch = useDispatch()
 
-  const userList: any = useSelector((state: RootState) => state.userList)
+  const userList: UserListType = useSelector(
+    (state: RootState) => state.userList
+  )
   const { loading, error, users } = userList
 
-  const userLogin: any = useSelector((state: RootState) => state.userLogin)
+  const userLogin: UserLoginType = useSelector(
+    (state: RootState) => state.userLogin
+  )
   const { userInfo } = userLogin
 
-  const userDelete: any = useSelector((state: RootState) => state.userDelete)
+  const userDelete: UserDeleteType = useSelector(
+    (state: RootState) => state.userDelete
+  )
   const { success: successDelete } = userDelete
 
   useEffect(() => {

@@ -1,92 +1,3 @@
-interface Product {
-    _id: string,
-    name: string,
-    image?: string,
-    imageMin?: string,
-    description:string,
-    brand: string,
-    category: string,
-    price: number,
-    countInStock?: number,
-    rating?: number,
-    numReviews?: number,
-    reviews?: array<string>
-}
-
-type User = {
-    email: string,
-    name: string,
-    id?: string,
-    _id?: string,
-    password?: string,
-    isAdmin?: boolean,
-    token?: string,
-}
-
-type CartItem = {
-    product: string,
-    name: string,
-    image: string,
-    price: number,
-    countInStock: number,
-    qty: number,
-}
-
-type shippingAddressType={ 
-    address: string, 
-    city: string, 
-    postalCode:string,
-    country: string
-}
-type CartState = {
-    cartItems: CartItem[]
-    shippingAddress: shippingAddressType
-    paymentMethod: string
-    itemsPrice?: number|null|string
-    shippingPrice?: number|null|string
-    taxPrice?: number|null|string
-    totalPrice?: number|null|string
-  }
-
-  type OrderType={
-    orderItems: CartItem[],
-    shippingAddress: shippingAddressType,
-    paymentMethod: string,
-    itemsPrice: number,
-    shippingPrice: number,
-    taxPrice:number,
-    totalPrice: number,
-}
-
-type orderDetailsType = {
-    order: CartState & {
-      _id: string
-      orderItems: CartItem[]
-      user: { email: string; name: string }
-      isPaid: boolean
-      paidAt: Date
-      isDelivered: boolean
-      deliveredAt: Date
-      totalPrice: number
-      itemsprice: any,
-    }
-    loading?: boolean
-    error?: string
-  }
-
-type Order = CartState & {
-    _id: string
-    orderItems: CartItem[],
-    user: { email: string; name: string }
-    isPaid: boolean
-    paidAt: string
-    isDelivered: boolean
-    deliveredAt: string
-    createdAt: string
-    totalPrice: number}
-
-
-
 type ProductListRequest={
     type: typeof import ('./store/constants').PRODUCT_LIST_REQUEST
     payload?: any 
@@ -100,12 +11,13 @@ type ProductListSucces={
         page: string 
     }
 }
+
 type ProductListFail={
     type: typeof import ('./store/constants').PRODUCT_LIST_FAIL
     payload: string
 }
 
-type ProductAction = | ProductListRequest|ProductListSucces|ProductListFail
+type ProductAction = | ProductListRequest | ProductListSucces | ProductListFail
 
 type ProductDetailsRequest={
     type: typeof import ('./store/constants').PRODUCT_DETAILS_REQUEST
@@ -114,63 +26,65 @@ type ProductDetailsRequest={
 
 type ProductDetailsSucces={
     type: typeof import ('./store/constants').PRODUCT_DETAILS_SUCCESS
-    payload:  any
+    payload: Product
 }
 type ProductDetailsFail={
     type: typeof import ('./store/constants').PRODUCT_DETAILS_FAIL
-    payload: any
+    payload: string
 }
 
-type ProductDetailsAction = | ProductDetailsRequest|ProductDetailsSucces|ProductDetailsFail
+type ProductDetailsAction = | ProductDetailsRequest | ProductDetailsSucces | ProductDetailsFail
 
 type UserUpdateProfileRequest={
-    type: typeof import ('./store/constants/userConstants').USER_UPDATE_PROFILE_REQUEST
+    type: typeof import ('../store/constants/userConstants').USER_UPDATE_PROFILE_REQUEST
     payload?: string 
     }
 
 type UserUpdateProfileSucces={
-    type: typeof import ('./store/constants/userConstants').USER_UPDATE_PROFILE_SUCCESS
+    type: typeof import ('../store/constants/userConstants').USER_UPDATE_PROFILE_SUCCESS
     payload:  Product[]
 }
 type UserUpdateProfileFail={
-    type: typeof import ('./store/constants/userConstants').USER_UPDATE_PROFILE_FAIL
+    type: typeof import ('../store/constants/userConstants').USER_UPDATE_PROFILE_FAIL
     payload: string
 }
 type UserUpdateProfileReset={
-    type: typeof import ('./store/constants/userConstants').USER_UPDATE_PROFILE_RESET
+    type: typeof import ('../store/constants/userConstants').USER_UPDATE_PROFILE_RESET
     payload: string
 }
-type UserUpdateProfileAction = | UserUpdateProfileRequest  | UserUpdateProfileSucces | UserUpdateProfileFail | UserUpdateProfileReset
+type UserUpdateProfileAction = | UserUpdateProfileRequest  | UserUpdateProfileSucces | UserUpdateProfileFail | UserUpdateProfileReset | CartReset
 
 type CartAddItem={
-    type: typeof import ('./store/constants/cartConstants').CART_ADD_ITEM
+    type: typeof import ('../store/constants/cartConstants').CART_ADD_ITEM
     payload: CartItem
 }
 type CartRemoveItem={
-    type: typeof import ('./store/constants/cartConstants').CART_REMOVE_ITEM
+    type: typeof import ('../store/constants/cartConstants').CART_REMOVE_ITEM
     payload: string
 }
 
 type CartSaveShippingAddress={
-    type: typeof import ('./store/constants/cartConstants').CART_SAVE_SHIPPING_ADDRESS
+    type: typeof import ('../store/constants/cartConstants').CART_SAVE_SHIPPING_ADDRESS
     payload: string
 }
 type CartSavePaymentMethod={
-    type: typeof import ('./store/constants/cartConstants').CART_SAVE_PAYMENT_METHOD
+    type: typeof import ('../store/constants/cartConstants').CART_SAVE_PAYMENT_METHOD
+    payload: string
+}
+type CartReset={
+    type: typeof import ('../store/constants/cartConstants').CART_RESET
     payload: string
 }
 
-type CartActions = | CartAddItem | CartRemoveItem | CartSaveShippingAddress | CartSavePaymentMethod
-
-
+type CartActions = | CartAddItem | CartRemoveItem | CartSaveShippingAddress | CartSavePaymentMethod | CartReset
 
 type UserLoginRequest={
     type: typeof import ('../constants/userConstants').USER_LOGIN_REQUEST
-    payload?: string
+    payload?: any
 }
 type UserLoginSuccess={
     type: typeof import ('../constants/userConstants').USER_LOGIN_SUCCESS
-    payload:  any
+    payload:  User
 }
 type UserLoginFail={
     type: typeof import ('../constants/userConstants').USER_LOGIN_FAIL
@@ -178,11 +92,10 @@ type UserLoginFail={
 }
 type UserLogout={
     type: typeof import ('../constants/userConstants').USER_LOGOUT
-    payload: any
+    payload?: any
 }
 
-type UserAction = | UserLoginRequest | UserLoginSuccess | UserLoginFail | UserLogout
-
+type UserAction = | UserLoginRequest | UserLoginSuccess | UserLoginFail | UserLogout | CartReset
 
 
 type UserRegisterRequest={
@@ -191,7 +104,7 @@ type UserRegisterRequest={
 }
 type UserRegisterSuccess={
     type: typeof import ('../constants/userConstants').USER_REGISTER_SUCCESS
-    payload:  any
+    payload:  User
 }
 type UserRegisterFail={
     type: typeof import ('../constants/userConstants').USER_REGISTER_FAIL
@@ -199,7 +112,7 @@ type UserRegisterFail={
 }
 
 
-type UserRegisterAction = | UserRegisterRequest | UserRegisterSuccess | UserRegisterFail
+type UserRegisterAction = | UserRegisterRequest | UserRegisterSuccess | UserRegisterFail | UserLoginSuccess
 
 type UserDetailsRequest={
     type: typeof import ('../constants/userConstants').USER_DETAILS_REQUEST
@@ -207,7 +120,7 @@ type UserDetailsRequest={
 }
 type UserDetailsSuccess={
     type: typeof import ('../constants/userConstants').USER_DETAILS_SUCCESS
-    payload:  any
+    payload:  User
 }
 type UserDetailsFail={
     type: typeof import ('../constants/userConstants').USER_DETAILS_FAIL
@@ -222,14 +135,14 @@ type UserUpdateStateRequest={
 }
 type UserUpdateStateSuccess={
     type: typeof import ('../constants/userConstants').USER_UPDATE_STATE_SUCCESS
-    payload:  any
+    payload:  User
 }
 type UserUpdateStateFail={
     type: typeof import ('../constants/userConstants').USER_UPDATE_STATE_FAIL
     payload: string
 }
 
-type UserUpdateStateAction = | UserUpdateStateRequest | UserUpdateStateSuccess | UserUpdateStateFail
+type UserUpdateStateAction = | UserUpdateStateRequest | UserUpdateStateSuccess | UserUpdateStateFail | UserLoginSuccess
 
 
 
@@ -239,43 +152,43 @@ type OrderCreateRequest={
 }
 type OrderCreateSuccess={
     type: typeof import ('../constants/orderConstants').ORDER_CREATE_SUCCESS
-    payload:  any
+    payload:  User
 }
 type OrderCreateFail={
     type: typeof import ('../constants/orderConstants').ORDER_CREATE_FAIL
     payload: string
 }
+type OrderCreateReset={
+    type: typeof import ('../constants/orderConstants').ORDER_CREATE_RESET
+    payload?: any
+}
 
-type OrderCreateStateAction = | OrderCreateRequest | OrderCreateSuccess | OrderCreateFail
-
-
+type OrderCreateStateAction = | OrderCreateRequest | OrderCreateSuccess | OrderCreateFail | CartReset | OrderCreateReset
 
 type OrderDetailsStateAction = | OrderDetailsRequest | OrderDetailsSuccess | OrderDetailsFails
 
 type OrderDetailsRequest={
     type: typeof import ('../constants/orderConstants').ORDER_DETAILS_REQUEST
-    payload: string
+    payload?: any
 }
 type OrderDetailsSuccess={
     type: typeof import ('../constants/orderConstants').ORDER_DETAILS_SUCCESS
-    payload:  any
+    payload:  OrderType
 }
 type OrderDetailsFail={
     type: typeof import ('../constants/orderConstants').ORDER_DETAILS_FAIL
     payload: string
 }
 
-
-
 type OrderPayStateAction = | OrderPayRequest | OrderPaySuccess | OrderPayFails | OrderPayReset
 
 type OrderPayRequest={
     type: typeof import ('../constants/orderConstants').ORDER_PAY_REQUEST
-    payload: string
+    payload?: any
 }
 type OrderPaySuccess={
     type: typeof import ('../constants/orderConstants').ORDER_PAY_SUCCESS
-    payload:  any
+    payload?: any
 }
 type OrderPayFail={
     type: typeof import ('../constants/orderConstants').ORDER_PAY_FAIL
@@ -283,18 +196,18 @@ type OrderPayFail={
 }
 type OrderPayReset={
     type: typeof import ('../constants/orderConstants').ORDER_PAY_RESET
-    payload: string
+    payload?: any
 }
 
 type OrderDeliverStateAction = | OrderDeliverRequest | OrderDeliverSuccess | OrderDeliverFails | OrderDeliverReset
 
 type OrderDeliverRequest={
     type: typeof import ('../constants/orderConstants').ORDER_DELIVER_REQUEST
-    payload: string
+    payload?: any
 }
 type OrderDeliverSuccess={
     type: typeof import ('../constants/orderConstants').ORDER_DELIVER_SUCCESS
-    payload:  any
+    payload:  OrderType
 }
 type OrderDeliverFail={
     type: typeof import ('../constants/orderConstants').ORDER_DELIVER_FAIL
@@ -302,29 +215,33 @@ type OrderDeliverFail={
 }
 type OrderDeliverReset={
     type: typeof import ('../constants/orderConstants').ORDER_DELIVER_RESET
-    payload: string
+    payload?: any
 }
 
-type OrderListMyAction = |OrderListMyRequest|OrderListMySuccess |OrderListMyFail
+type OrderListMyAction = | OrderListMyRequest | OrderListMySuccess | OrderListMyFail | OrderListMyReset
 
 type OrderListMyRequest={
     type: typeof import ('../constants/orderConstants').ORDER_LIST_MY_REQUEST
-    payload: string
+    payload?: string
 }
 type OrderListMySuccess={
     type: typeof import ('../constants/orderConstants').ORDER_LIST_MY_SUCCESS
-    payload:  any
+    payload:  Array<OrderType>
 }
 type OrderListMyFail={
     type: typeof import ('../constants/orderConstants').ORDER_LIST_MY_FAIL
     payload: string
 }
+type OrderListMyReset={
+    type: typeof import ('../constants/orderConstants').ORDER_LIST_MY_RESET
+    payload?: any 
+}
 
-type OrderListAction = |OrderListRequest|OrderListSuccess |OrderListFail
+type OrderListAction = | OrderListRequest | OrderListSuccess | OrderListFail
 
 type OrderListRequest={
     type: typeof import ('../constants/orderConstants').ORDER_LIST_REQUEST
-    payload: string
+    payload?: string
 }
 type OrderListSuccess={
     type: typeof import ('../constants/orderConstants').ORDER_LIST_SUCCESS
@@ -334,8 +251,6 @@ type OrderListFail={
     type: typeof import ('../constants/orderConstants').ORDER_LIST_FAIL
     payload: string
 }
-
-
     
 type UserListAction = | UserListStateRequest | UserListStateSuccess | UserListStateFail | UserListStateReset
 
@@ -345,7 +260,7 @@ type UserListStateRequest={
 }
 type UserListStateSuccess={
     type: typeof import ('../constants/userConstants').USER_LIST_SUCCESS
-    payload:  any
+    payload:  Array<User>
 }
 type UserListStateFail={
     type: typeof import ('../constants/userConstants').USER_LIST_FAIL
@@ -353,18 +268,18 @@ type UserListStateFail={
 }
 type UserListStateReset={
     type: typeof import ('../constants/userConstants').USER_LIST_RESET
-    payload: string
+    payload?: string
 }
 
 type UserDeleteAction = | UserDeleteRequest | UserDeleteSuccess | UserDeleteFail 
 
 type UserDeleteRequest={
     type: typeof import ('../constants/userConstants').USER_DELETE_REQUEST
-    payload?: string
+    payload?: any
 }
 type UserDeleteSuccess={
     type: typeof import ('../constants/userConstants').USER_DELETE_SUCCESS
-    payload:  any
+    payload?:  any
 }
 type UserDeleteFail={
     type: typeof import ('../constants/userConstants').USER_DELETE_FAIL
@@ -380,7 +295,7 @@ type UserUpdateRequest={
 }
 type UserUpdateSuccess={
     type: typeof import ('../constants/userConstants').USER_UPDATE_SUCCESS
-    payload:  any
+    payload:  User
 }
 type UserUpdateFail={
     type: typeof import ('../constants/userConstants').USER_UPDATE_FAIL
@@ -388,7 +303,7 @@ type UserUpdateFail={
 }
 type UserUpdateReset={
     type: typeof import ('../constants/userConstants').USER_UPDATE_RESET
-    payload: string
+    payload?: string
 }
 
 
@@ -439,7 +354,7 @@ type ProductUpdateRequest={
 }
 type ProductUpdateSuccess={
     type: typeof import ('../constants/constants').PRODUCT_UPDATE_SUCCESS
-    payload:  any
+    payload: Product
 }
 type ProductUpdateFail={
     type: typeof import ('../constants/constants').PRODUCT_UPDATE_FAIL

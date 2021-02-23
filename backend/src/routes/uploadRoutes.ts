@@ -1,6 +1,6 @@
 import path from 'path'
 import express, { Response } from 'express'
-import multer, { FileFilterCallback } from 'multer';
+import multer from 'multer';
 import {Request} from 'express'
 
 

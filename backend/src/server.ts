@@ -1,5 +1,5 @@
 import path from 'path'
-import express, { Application, NextFunction } from 'express'
+import express, { Application} from 'express'
 import dotenv from 'dotenv'
 import {Request, Response} from 'express'
 import colors from 'colors'

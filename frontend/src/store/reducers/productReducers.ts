@@ -83,20 +83,20 @@ export const productDeleteReducer = (state: ProductDeleteState = {}, action: Pro
     switch(action.type){
         case PRODUCT_DELETE_REQUEST:
             return {
-                ...state, 
+                // ...state, 
                 loading: true, 
                  
             }
         case PRODUCT_DELETE_SUCCESS:
             return {
-                ...state,
+                // ...state,
                 loading: false, 
                 success:true,
                
             }
         case PRODUCT_DELETE_FAIL:
             return {
-                ...state,
+                // ...state,
                 loading: false, 
                 error: action.payload
             }
@@ -110,55 +110,48 @@ export const productCreateReducer = (state: ProductCreateState = {}, action: Pro
     switch(action.type){
         case PRODUCT_CREATE_REQUEST:
             return {
-                ...state, 
-                loading: true, 
-                 
+                // ...state, 
+                loading: true,                  
             }
         case PRODUCT_CREATE_SUCCESS:
             return {
-                ...state,
+                // ...state,
                 loading: false, 
                 success: true,
-                product: action.payload,
-               
+                product: action.payload,               
             }
         case PRODUCT_CREATE_FAIL:
             return {
-                ...state,
+                // ...state,
                 loading: false, 
                 error: action.payload
             }
         case PRODUCT_CREATE_RESET:
-            return {
-               
+            return {               
             }
-
         default:
             return state
     }
 }
 
-type ProductUpdateState = any
+type ProductUpdateState = {
+    product: Product | object
+}
 
 export const productUpdateReducer = (state: ProductUpdateState = {product:{}}, action: ProductUpdateAction)=>{
     switch(action.type){
         case PRODUCT_UPDATE_REQUEST:
             return {
-               
-                loading: true, 
-                 
+                loading: true,   
             }
         case PRODUCT_UPDATE_SUCCESS:
-            return {
-                
+            return {                
                 loading: false, 
                 success: true,
-                product: action.payload,
-               
+                product: action.payload,               
             }
         case PRODUCT_UPDATE_FAIL:
-            return {
-                
+            return {                
                 loading: false, 
                 error: action.payload
             }
@@ -166,15 +159,12 @@ export const productUpdateReducer = (state: ProductUpdateState = {product:{}}, a
             return {
                product:{}
             }
-
         default:
             return state
     }
 }
 
-type ProductCreateReviewState = any
-
-export const productReviewCreateReducer = (state: ProductCreateReviewState = {}, action: ProductCreateReviewAction)=>{
+export const productReviewCreateReducer = (state: any = {}, action: ProductCreateReviewAction)=>{
     switch(action.type){
         case PRODUCT_CREATE_REVIEW_REQUEST:
             return {
@@ -194,12 +184,10 @@ export const productReviewCreateReducer = (state: ProductCreateReviewState = {},
             return {
                product:{}
             }
-
         default:
             return state
     }
 }
-
 
 type ProductTopRatedState = {
     products: Array<Product>,
@@ -224,8 +212,6 @@ export const productTopRatedReducer = (state: ProductTopRatedState = {products:[
                 loading: false, 
                 error: action.payload
             }
-     
-
         default:
             return state
     }

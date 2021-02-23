@@ -2,9 +2,10 @@ import {ORDER_CREATE_REQUEST, ORDER_CREATE_SUCCESS, ORDER_CREATE_FAIL, ORDER_DET
 import axios from "axios"
 import { ThunkAction } from "redux-thunk"
 import { RootState } from "../store"
-import { Dispatch } from "redux"
+import { CART_RESET } from '../constants/cartConstants'
 
-export const createOrder =(order: OrderType): ThunkAction<void, RootState,null,OrderCreateStateAction>=> async(dispatch, getState)=>{
+
+export const createOrder =(order: CreteOrder): ThunkAction<void, RootState,null,OrderCreateStateAction>=> async(dispatch, getState)=>{
    
     try {
         dispatch({
@@ -28,14 +29,15 @@ export const createOrder =(order: OrderType): ThunkAction<void, RootState,null,O
             type: ORDER_CREATE_SUCCESS,
             payload: data
         })
+        dispatch({
+            type: CART_RESET
+        })
         
     } catch (error) {
             dispatch({
                 type: ORDER_CREATE_FAIL,
                 payload: error.response && error.response.data.message ? error.response.data.message : error.message,
-            })
-        
-        
+            })        
     }
 }
 
@@ -95,7 +97,6 @@ export const payOrder =(orderId: string, paymentResult:any): ThunkAction<void, R
             }
         }
    
-        
         const {data} = await axios.put(`/api/orders/${orderId}/pay`, paymentResult, config)
        
        
@@ -114,7 +115,7 @@ export const payOrder =(orderId: string, paymentResult:any): ThunkAction<void, R
     }
 }
 
-export const deliverOrder =(order: Order): ThunkAction<void, RootState,null,OrderDeliverStateAction>=> async(dispatch, getState)=>{
+export const deliverOrder =(order: OrderType): ThunkAction<void, RootState,null,OrderDeliverStateAction>=> async(dispatch, getState)=>{
    
     try {
         dispatch({           
@@ -136,7 +137,6 @@ export const deliverOrder =(order: Order): ThunkAction<void, RootState,null,Orde
    
         
         const {data} = await axios.put(`/api/orders/${order._id}/deliver`, {}, config)
-       
        
         dispatch({
             type: ORDER_DELIVER_SUCCESS,

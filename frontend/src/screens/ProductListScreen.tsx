@@ -2,10 +2,6 @@ import React, { useEffect } from 'react'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Table, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import Message from '../components/Message'
-import Loader from '../components/Loader'
-import Paginate from '../components/Paginate'
-import Meta from '../components/Meta'
 import { RootState } from '../store/store'
 import {
   listProducts,
@@ -14,6 +10,31 @@ import {
 } from '../store/actions/productActions'
 import { RouteComponentProps } from 'react-router-dom'
 import { PRODUCT_CREATE_RESET } from '../store/constants/constants'
+import Message from '../components/Message'
+import Loader from '../components/Loader'
+import Paginate from '../components/Paginate'
+import Meta from '../components/Meta'
+
+type ProductList = {
+  loading: boolean
+  error: string
+  products: Product[]
+  pages: string
+  page: string
+}
+
+type ProductDeleteType = {
+  loading: boolean
+  error: string
+  success: boolean
+}
+
+type ProductCreateType = {
+  loading: boolean
+  error: string
+  success: boolean
+  product: Product
+}
 
 interface MatchParams {
   keyword: string
@@ -22,24 +43,17 @@ interface MatchParams {
 
 interface MatchProps extends RouteComponentProps<MatchParams> {}
 
-const ProductListScreen = ({ history, match }: MatchProps) => {
+const ProductListScreen: React.FC<MatchProps> = ({ history, match }) => {
   const dispatch = useDispatch()
   const keyword = match.params.keyword
   const pageNumber = match.params.pageNumber || '1'
 
-  type ProductList = {
-    loading: boolean
-    error: string
-    products: Product[]
-    pages: string
-    page: string
-  }
   const productList: ProductList = useSelector(
     (state: RootState) => state.productList
   )
   const { loading, error, products, pages, page } = productList
 
-  const productDelete: any = useSelector(
+  const productDelete: ProductDeleteType = useSelector(
     (state: RootState) => state.productDelete
   )
   const {
@@ -48,7 +62,7 @@ const ProductListScreen = ({ history, match }: MatchProps) => {
     success: successDelete,
   } = productDelete
 
-  const productCreate: any = useSelector(
+  const productCreate: ProductCreateType = useSelector(
     (state: RootState) => state.productCreate
   )
   const {

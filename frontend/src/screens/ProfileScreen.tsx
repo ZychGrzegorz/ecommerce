@@ -1,40 +1,50 @@
 import React, { useState, useEffect } from 'react'
-import Message from '../components/Message'
-import Loader from '../components/Loader'
-import Meta from '../components/Meta'
 import { RouteComponentProps } from 'react-router-dom'
 import { Form, Button, Row, Col, Table } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
 import { RootState } from '../store/store'
-import { listMyOrders } from '../store/actions/orderActions'
 import { getUserDetails, updateUserProfile } from '../store/actions/userActions'
 import { USER_UPDATE_PROFILE_RESET } from '../store/constants/userConstants'
+import { listMyOrders } from '../store/actions/orderActions'
+import Message from '../components/Message'
+import Loader from '../components/Loader'
+import Meta from '../components/Meta'
 
-const ProfileScreen = ({ history }: RouteComponentProps) => {
+type UserDetailsType = {
+  loading: boolean
+  error: string
+  user: User
+}
+
+type UserLoginType = {
+  userInfo: User
+}
+
+type UserUpdateProfileType = {
+  success: boolean
+}
+
+const ProfileScreen: React.FC<RouteComponentProps> = ({ history }) => {
   const [name, setName] = useState<string>('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+  const [confirmPassword, setConfirmPassword] = useState<string>('')
   const [message, setMessage] = useState<null | string>(null)
 
   const dispatch = useDispatch()
 
-  type userDetailsType = {
-    loading: boolean
-    error: string
-    user: User
-  }
-  const userDetails = useSelector((state: RootState) => state.userDetails)
-  const { loading, error, user } = userDetails as userDetailsType
+  const userDetails: UserDetailsType = useSelector(
+    (state: RootState) => state.userDetails
+  )
+  const { loading, error, user } = userDetails
 
-  type userLoginType = {
-    userInfo: User
-  }
-  const userLogin = useSelector((state: RootState) => state.userLogin)
-  const { userInfo } = userLogin as userLoginType
+  const userLogin: UserLoginType = useSelector(
+    (state: RootState) => state.userLogin
+  )
+  const { userInfo } = userLogin
 
-  const userUpdateProfile = useSelector(
+  const userUpdateProfile: UserUpdateProfileType = useSelector(
     (state: RootState) => state.userUpdateProfile
   )
   const { success } = userUpdateProfile
@@ -140,11 +150,11 @@ const ProfileScreen = ({ history }: RouteComponentProps) => {
               </tr>
             </thead>
             <tbody>
-              {orders.map((order: Order) => (
+              {orders.map((order: OrderType) => (
                 <tr key={order._id}>
                   <td>{order._id}</td>
                   <td>{order.createdAt.substring(0, 10)}</td>
-                  <td>{order.totalPrice}</td>
+                  <td>{order.totalPrice}&nbsp;€</td>
                   <td>
                     {order.isPaid ? (
                       order.paidAt.substring(0, 10)

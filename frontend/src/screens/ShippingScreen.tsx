@@ -2,19 +2,25 @@ import React, { useState } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import { Form, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import FormContainer from '../components/FormContainer'
-import CheckoutSteps from '../components/CheckoutSteps'
 import { saveShippingAddress } from '../store/actions/cartActions'
 import { RootState } from '../store/store'
+import FormContainer from '../components/FormContainer'
+import CheckoutSteps from '../components/CheckoutSteps'
 import Meta from '../components/Meta'
 
-const ShippingScreen = ({ history }: RouteComponentProps) => {
-  const cart: any = useSelector((state: RootState) => state.cart)
+type CartType = {
+  shippingAddress: shippingAddressType
+}
+const ShippingScreen: React.FC<RouteComponentProps> = ({ history }) => {
+  const cart: CartType = useSelector((state: RootState) => state.cart)
   const { shippingAddress } = cart
-  const [address, setAddress] = useState(shippingAddress.address)
-  const [city, setCity] = useState(shippingAddress.city)
-  const [postalCode, setPostalCode] = useState(shippingAddress.postalCode)
-  const [country, setCountry] = useState(shippingAddress.country)
+
+  const [address, setAddress] = useState<string>(shippingAddress.address)
+  const [city, setCity] = useState<string>(shippingAddress.city)
+  const [postalCode, setPostalCode] = useState<string>(
+    shippingAddress.postalCode
+  )
+  const [country, setCountry] = useState<string>(shippingAddress.country)
 
   const dispatch = useDispatch()
 

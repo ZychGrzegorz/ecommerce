@@ -125,8 +125,7 @@ export const createProduct =(): ThunkAction<void, RootState,null,ProductCreateAc
     }
 }
 
-
-export const updateProduct =(product:{
+type UpdateProductType = {
     _id:string,
     name: string,
     price:number,
@@ -135,7 +134,10 @@ export const updateProduct =(product:{
     description: string,
     countInStock: number,
     image: string,
-    imageMin:string}): ThunkAction<void, RootState,null,ProductUpdateAction>=> async(dispatch, getState)=>{
+    imageMin:string
+}
+export const updateProduct =(product:UpdateProductType
+    ): ThunkAction<void, RootState,null,ProductUpdateAction>=> async(dispatch, getState)=>{
    
     try {
        

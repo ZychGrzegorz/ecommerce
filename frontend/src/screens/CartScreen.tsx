@@ -2,9 +2,9 @@ import React, { useEffect } from 'react'
 import { Link, RouteComponentProps } from 'react-router-dom'
 import { Row, Col, ListGroup, Image, Form, Button, Card } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import Message from '../components/Message'
 import { addToCart, removeFromCart } from '../store/actions/cartActions'
 import { RootState } from '../store/store'
+import Message from '../components/Message'
 import Meta from '../components/Meta'
 
 interface MatchParams {
@@ -12,12 +12,17 @@ interface MatchParams {
 }
 
 interface MatchProps extends RouteComponentProps<MatchParams> {}
-const CartScreen = ({ match, location, history }: MatchProps) => {
+
+type CartType = {
+  cartItems: Array<CartItem>
+}
+
+const CartScreen: React.FC<MatchProps> = ({ match, location, history }) => {
   const productId = match.params.id
   const qty = location.search ? Number(location.search.split('=')[1]) : 1
   const dispatch = useDispatch()
 
-  const cart: CartState = useSelector((state: RootState) => state.cart)
+  const cart: CartType = useSelector((state: RootState) => state.cart)
   const { cartItems } = cart
 
   useEffect(() => {

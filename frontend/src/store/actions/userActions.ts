@@ -6,6 +6,7 @@ import {ORDER_LIST_MY_RESET} from '../constants/orderConstants'
 import { RootState } from "../store"
 
 
+
 export const login =(email: string, password:string): ThunkAction<void, RootState,null,UserAction>=> async(dispatch)=>{
     try {
         dispatch({
@@ -17,10 +18,12 @@ export const login =(email: string, password:string): ThunkAction<void, RootStat
             }
         }
         const {data} = await axios.post('/api/users/login', {email, password}, config)
+        
         dispatch({
             type: USER_LOGIN_SUCCESS,
             payload: data
         })
+      
 
         localStorage.setItem('userInfo', JSON.stringify(data))
 
@@ -43,7 +46,7 @@ export const logout = () => (dispatch: Dispatch)=>{
    
 }
 
-export const register =(name: string,email: string, password:string): ThunkAction<void, RootState,null,UserAction>=> async(dispatch)=>{
+export const register =(name: string,email: string, password:string): ThunkAction<void, RootState,null,UserRegisterAction>=> async(dispatch)=>{
     try {
         dispatch({
             type: USER_REGISTER_REQUEST
@@ -77,7 +80,7 @@ export const register =(name: string,email: string, password:string): ThunkActio
     }
 }
 
-export const getUserDetails =(id: string): ThunkAction<void, RootState,null,UserAction>=> async(dispatch, getState)=>{
+export const getUserDetails =(id: string): ThunkAction<void, RootState,null,UserDetailsAction>=> async(dispatch, getState)=>{
 
     try {
         dispatch({
@@ -116,7 +119,7 @@ export const getUserDetails =(id: string): ThunkAction<void, RootState,null,User
     }
 }
 
-export const updateUserProfile =(user: User): ThunkAction<void, RootState,null,UserAction>=> async(dispatch, getState)=>{
+export const updateUserProfile =(user: User): ThunkAction<void, RootState,null,UserUpdateStateAction>=> async(dispatch, getState)=>{
 
     try {
         dispatch({

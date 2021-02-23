@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, RouteComponentProps } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap'
@@ -17,10 +17,13 @@ type UserLoginInterface = {
     token: string
   }
 }
+
 const Header: React.FC = () => {
   const dispatch = useDispatch()
-  const userLogin = useSelector((state: RootState) => state.userLogin)
-  const { userInfo } = userLogin as UserLoginInterface
+  const userLogin: UserLoginInterface = useSelector(
+    (state: RootState) => state.userLogin
+  )
+  const { userInfo } = userLogin
   const logoutHandler = () => {
     dispatch(logout())
   }
@@ -34,7 +37,9 @@ const Header: React.FC = () => {
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
             <Route
-              render={({ history }): any => <SearchBox history={history} />}
+              render={({ history }: any): any => (
+                <SearchBox history={history} />
+              )}
             />
 
             <Nav className='ml-auto'>

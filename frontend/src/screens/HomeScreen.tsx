@@ -2,15 +2,17 @@ import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { Row, Col } from 'react-bootstrap'
+import { listProducts } from '../store/actions/productActions'
+import { RootState } from '../store/store'
+import { RouteComponentProps } from 'react-router-dom'
+import { ORDER_DETAILS_RESET } from '../store/constants/orderConstants'
 import Product from '../components/Product'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import Paginate from '../components/Paginate'
-import { listProducts } from '../store/actions/productActions'
-import { RootState } from '../store/store'
-import { RouteComponentProps } from 'react-router-dom'
 import ProductCarousel from '../components/ProductCarousel'
 import Meta from '../components/Meta'
+
 type ProductList = {
   loading: boolean
   error: string
@@ -24,26 +26,24 @@ interface MatchParams {
 }
 
 interface MatchProps extends RouteComponentProps<MatchParams> {}
-const HomeScreen = ({ match }: MatchProps) => {
-  const keyword = match.params.keyword
 
+const HomeScreen: React.FC<MatchProps> = ({ match }) => {
+  const keyword = match.params.keyword
   const pageNumber = match.params.pageNumber || '1'
 
   const dispatch = useDispatch()
+
   const productList: ProductList = useSelector(
     (state: RootState) => state.productList
   )
   const { loading, error, products, page, pages } = productList
 
-  const userLogin: { userInfo: User } = useSelector(
-    (state: RootState) => state.userLogin
-  )
-  const { userInfo } = userLogin
-
   useEffect(() => {
     dispatch(listProducts(keyword, pageNumber))
   }, [dispatch, keyword, pageNumber])
-
+  useEffect(() => {
+    dispatch({ type: ORDER_DETAILS_RESET })
+  }, [])
   return (
     <>
       <Meta />

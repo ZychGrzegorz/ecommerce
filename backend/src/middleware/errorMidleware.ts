@@ -1,5 +1,5 @@
 import {Request, Response} from 'express'
-import express, { NextFunction } from 'express'
+import { NextFunction } from 'express'
 
 
 const notFound=(req: Request,res:Response,next:NextFunction)=>{

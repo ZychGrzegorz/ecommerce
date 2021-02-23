@@ -1,34 +1,49 @@
 import React, { useState, useEffect } from 'react'
 import { Link, RouteComponentProps } from 'react-router-dom'
-import { Form, Button, FormCheck } from 'react-bootstrap'
+import { Form, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
+import { getUserDetails, updateUser } from '../store/actions/userActions'
+import { USER_UPDATE_RESET } from '../store/constants/userConstants'
+import { RootState } from '../store/store'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import Meta from '../components/Meta'
 import FormContainer from '../components/FormContainer'
-import { getUserDetails, updateUser } from '../store/actions/userActions'
-import { USER_UPDATE_RESET } from '../store/constants/userConstants'
-import { RootState } from '../store/store'
 
 interface MatchParams {
   id: string
 }
 interface MatchProps extends RouteComponentProps<MatchParams> {}
 
-const UserEditScreen = ({ match, history }: MatchProps) => {
+type UserDeatilsType = {
+  loading: boolean
+  error: string
+  user: User
+}
+
+type UserUpdateType = {
+  loading: boolean
+  error: string
+  success: boolean
+}
+const UserEditScreen: React.FC<MatchProps> = ({ match, history }) => {
   const userId = match.params.id
 
   const [name, setName] = useState<string>('')
-  const [email, setEmail] = useState('')
-  const [isAdmin, setIsAdmin] = useState(false)
-  const [confirmPassword, setConfirmPassword] = useState('')
+  const [email, setEmail] = useState<string>('')
+  const [isAdmin, setIsAdmin] = useState<boolean>(false)
+  const [confirmPassword, setConfirmPassword] = useState<string>('')
 
   const dispatch = useDispatch()
 
-  const userDetails = useSelector((state: RootState) => state.userDetails)
+  const userDetails: UserDeatilsType = useSelector(
+    (state: RootState) => state.userDetails
+  )
   const { loading, error, user } = userDetails
 
-  const userUpdate = useSelector((state: RootState) => state.userUpdate)
+  const userUpdate: UserUpdateType = useSelector(
+    (state: RootState) => state.userUpdate
+  )
   const {
     loading: loadingUpdate,
     error: errorUpdate,
@@ -40,12 +55,13 @@ const UserEditScreen = ({ match, history }: MatchProps) => {
       dispatch({ type: USER_UPDATE_RESET })
       history.push('/admin/userList')
     } else {
+      console.log(user)
       if (!user.name || user._id !== userId) {
         dispatch(getUserDetails(userId))
       } else {
         setName(user.name)
         setEmail(user.email)
-        setIsAdmin(user.isAdmin)
+        setIsAdmin(user.isAdmin!)
       }
     }
   }, [dispatch, history, userId, user, successUpdate])

@@ -2,24 +2,35 @@ import React, { useState, useEffect } from 'react'
 import { Link, RouteComponentProps } from 'react-router-dom'
 import { Form, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
+import { register } from '../store/actions/userActions'
+import { RootState } from '../store/store'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
-import { register } from '../store/actions/userActions'
-import { RootState } from '../store/store'
 import Meta from '../components/Meta'
 
-const RegisterScreen = ({ location, history }: RouteComponentProps) => {
+type UserRegisterType = {
+  loading: boolean
+  error: string
+  userInfo: User
+}
+
+const RegisterScreen: React.FC<RouteComponentProps> = ({
+  location,
+  history,
+}) => {
   const [name, setName] = useState<string>('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+  const [confirmPassword, setConfirmPassword] = useState<string>('')
   const [message, setMessage] = useState<null | string>(null)
 
   const redirect = location.search ? location.search.split('=')[1] : '/'
   const dispatch = useDispatch()
 
-  const userRegister = useSelector((state: RootState) => state.userRegister)
+  const userRegister: UserRegisterType = useSelector(
+    (state: RootState) => state.userRegister
+  )
   const { loading, error, userInfo } = userRegister
 
   useEffect(() => {

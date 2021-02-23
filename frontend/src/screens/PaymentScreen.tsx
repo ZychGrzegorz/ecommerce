@@ -2,14 +2,19 @@ import React, { useState } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import { Form, Button, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import FormContainer from '../components/FormContainer'
-import CheckoutSteps from '../components/CheckoutSteps'
 import { savePaymentMethod } from '../store/actions/cartActions'
 import { RootState } from '../store/store'
+import FormContainer from '../components/FormContainer'
+import CheckoutSteps from '../components/CheckoutSteps'
 import Meta from '../components/Meta'
 
-const PaymentScreen = ({ history }: RouteComponentProps) => {
-  const cart = useSelector((state: RootState) => state.cart)
+type CartType = {
+  shippingAddress: shippingAddressType
+}
+
+const PaymentScreen: React.FC<RouteComponentProps> = ({ history }) => {
+  const cart: CartType = useSelector((state: RootState) => state.cart)
+
   const { shippingAddress } = cart
 
   if (!shippingAddress) {

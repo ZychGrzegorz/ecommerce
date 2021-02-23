@@ -4,8 +4,6 @@ import { PayPalButton } from 'react-paypal-button-v2'
 import { RouteComponentProps, Link } from 'react-router-dom'
 import { Row, Col, ListGroup, Image, Card, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import Message from '../components/Message'
-import Loader from '../components/Message'
 import { RootState } from '../store/store'
 import {
   getOrderDetails,
@@ -15,16 +13,32 @@ import {
 import {
   ORDER_PAY_RESET,
   ORDER_DELIVER_RESET,
+  ORDER_CREATE_RESET,
 } from '../store/constants/orderConstants'
+import Message from '../components/Message'
+import Loader from '../components/Message'
 import Meta from '../components/Meta'
 
+type OrderDetailsType = {
+  loading: boolean
+  error: string
+  order: OrderType
+}
+type UserLoginType = {
+  userInfo: User
+}
+type orderPayType = {
+  loading: boolean
+  success: boolean
+}
 interface MatchParams {
   id: string
 }
+
 const OrderScreen = ({ match, history }: RouteComponentProps<MatchParams>) => {
   const orderId = match.params.id
 
-  const [sdkReady, setSdkReady] = useState(false)
+  const [sdkReady, setSdkReady] = useState<boolean>(false)
 
   const dispatch = useDispatch()
 
@@ -32,31 +46,31 @@ const OrderScreen = ({ match, history }: RouteComponentProps<MatchParams>) => {
     return (Math.round(num * 100) / 100).toFixed(2)
   }
 
-  const orderDetails = useSelector((state: RootState) => state.orderDetails)
-  const { order, loading, error } = orderDetails as orderDetailsType
+  const orderDetails: OrderDetailsType = useSelector(
+    (state: RootState) => state.orderDetails
+  )
+  const { order, loading, error } = orderDetails
 
-  const userLogin = useSelector((state: RootState) => state.userLogin)
-  const { userInfo } = userLogin as any
-
-  type orderPayType = {
-    loading?: boolean
-    success?: boolean
-  }
+  const userLogin: UserLoginType = useSelector(
+    (state: RootState) => state.userLogin
+  )
+  const { userInfo } = userLogin
 
   const orderPay = useSelector((state: RootState) => state.orderPay)
   const { loading: loadingPay, success: successPay } = orderPay as orderPayType
 
-  const orderDeliver = useSelector((state: RootState) => state.orderDeliver)
-  const {
-    loading: loadingDeliver,
-    success: successDeliver,
-  } = orderDeliver as orderPayType
+  const orderDeliver: orderPayType = useSelector(
+    (state: RootState) => state.orderDeliver
+  )
+  const { loading: loadingDeliver, success: successDeliver } = orderDeliver
 
   if (!loading) {
-    order.itemsPrice = addDecimals(
-      order.orderItems.reduce(
-        (acc: number, item: CartItem) => acc + item.price * item.qty,
-        0
+    order.itemsPrice = Number(
+      addDecimals(
+        order.orderItems.reduce(
+          (acc: number, item: CartItem) => acc + item.price * item.qty,
+          0
+        )
       )
     )
   }
@@ -65,6 +79,7 @@ const OrderScreen = ({ match, history }: RouteComponentProps<MatchParams>) => {
     if (!userInfo) {
       history.push('/login')
     }
+    dispatch({ type: ORDER_CREATE_RESET })
     const addPayPalScript = async () => {
       const { data: clientId } = await axios.get('/api/config/paypal')
       const script = document.createElement('script')
@@ -92,10 +107,12 @@ const OrderScreen = ({ match, history }: RouteComponentProps<MatchParams>) => {
 
   const successPaymentHandler = (paymentResult: any) => {
     dispatch(payOrder(orderId, paymentResult))
+    console.log(order)
+    console.log('zrzucenie stanu z magazynu')
   }
 
   const deliverHandler = () => {
-    dispatch(deliverOrder(order as any))
+    dispatch(deliverOrder(order))
   }
 
   return loading ? (
@@ -153,7 +170,7 @@ const OrderScreen = ({ match, history }: RouteComponentProps<MatchParams>) => {
                   {order.orderItems.map((item: CartItem, index: number) => (
                     <ListGroup.Item key={index}>
                       <Row>
-                        <Col md={1}>
+                        <Col md={4}>
                           <Image
                             src={item.image}
                             alt={item.name}
@@ -168,7 +185,7 @@ const OrderScreen = ({ match, history }: RouteComponentProps<MatchParams>) => {
                         </Col>
                         <Col md={4}>
                           {item.qty} x {item.price}&nbsp;€ ={' '}
-                          {item.qty * item.price}
+                          {parseFloat((item.qty * item.price).toFixed(2))}
                           &nbsp;€
                         </Col>
                       </Row>

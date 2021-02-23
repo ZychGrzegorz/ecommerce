@@ -3,9 +3,6 @@ import React, { useState, useEffect } from 'react'
 import { Link, RouteComponentProps } from 'react-router-dom'
 import { Form, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import Message from '../components/Message'
-import Loader from '../components/Loader'
-import FormContainer from '../components/FormContainer'
 import {
   listProductDetails,
   updateProduct,
@@ -13,13 +10,20 @@ import {
 import { RootState } from '../store/store'
 import { PRODUCT_UPDATE_RESET } from '../store/constants/constants'
 import Meta from '../components/Meta'
-
+import Message from '../components/Message'
+import Loader from '../components/Loader'
+import FormContainer from '../components/FormContainer'
+type productDetailsType = {
+  product: Product
+  loading: boolean
+  error: string
+}
 interface MatchParams {
   id: string
 }
 interface MatchProps extends RouteComponentProps<MatchParams> {}
 
-const ProductEditScreen = ({ match, history }: MatchProps) => {
+const ProductEditScreen: React.FC<MatchProps> = ({ match, history }) => {
   const productId = match.params.id
 
   const [name, setName] = useState<string>('')
@@ -33,12 +37,6 @@ const ProductEditScreen = ({ match, history }: MatchProps) => {
   const [uploading, setUploading] = useState<boolean>(false)
 
   const dispatch = useDispatch()
-
-  type productDetailsType = {
-    product: Product
-    loading: boolean
-    error: string
-  }
 
   const productDetails = useSelector((state: RootState) => state.productDetails)
   const { loading, error, product } = productDetails as productDetailsType
@@ -144,7 +142,7 @@ const ProductEditScreen = ({ match, history }: MatchProps) => {
                 type='number'
                 placeholder='Enter price'
                 value={price}
-                onChange={(e) => setPrice(+e.target.value)}
+                onChange={(e) => setPrice(Number((+e.target.value).toFixed(2)))}
               ></Form.Control>
             </Form.Group>
 
@@ -160,7 +158,9 @@ const ProductEditScreen = ({ match, history }: MatchProps) => {
                 id='image-file'
                 label='Choose File'
                 custom
-                onChange={(e: any) => uploadFileHandler(e, 'normal')}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  uploadFileHandler(e, 'normal')
+                }
               ></Form.File>
               {uploading && <Loader />}
             </Form.Group>
@@ -177,7 +177,9 @@ const ProductEditScreen = ({ match, history }: MatchProps) => {
                 id='image-file'
                 label='Choose File'
                 custom
-                onChange={(e: any) => uploadFileHandler(e, 'min')}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  uploadFileHandler(e, 'min')
+                }
               ></Form.File>
               {uploading && <Loader />}
             </Form.Group>

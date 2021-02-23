@@ -1,6 +1,4 @@
 import express from 'express'
-
-import {Request, Response} from 'express'
 import { getProductById, getProducts, deleteProduct, updateProduct, createProduct, createProductReview, getTopProducts } from '../controllers/productController.js'
 import {protect, admin} from '../middleware/authMiddleware.js'
 

@@ -2,14 +2,22 @@ import React, { useEffect } from 'react'
 import { RouteComponentProps, Link } from 'react-router-dom'
 import { Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import Message from '../components/Message'
-import CheckoutSteps from '../components/CheckoutSteps'
 import { RootState } from '../store/store'
 import { createOrder } from '../store/actions/orderActions'
 import Meta from '../components/Meta'
+import Message from '../components/Message'
+import CheckoutSteps from '../components/CheckoutSteps'
 
+type orderCreateType = {
+  order: {
+    _id: string
+  }
+  success: boolean
+  error: string
+}
 const PlaceOrderScreen = ({ history }: RouteComponentProps) => {
   const dispatch = useDispatch()
+
   const cart: CartState = useSelector((state: RootState) => state.cart)
 
   const addDecimals = (num: number) => {
@@ -31,14 +39,6 @@ const PlaceOrderScreen = ({ history }: RouteComponentProps) => {
   cart.totalPrice = addDecimals(
     Number(cart.itemsPrice) + Number(cart.shippingPrice) + Number(cart.taxPrice)
   )
-
-  type orderCreateType = {
-    order: {
-      _id: string
-    }
-    success: boolean
-    error: string
-  }
 
   const orderCreate: orderCreateType = useSelector(
     (state: RootState) => state.orderCreate
@@ -94,7 +94,7 @@ const PlaceOrderScreen = ({ history }: RouteComponentProps) => {
                   {cart.cartItems.map((item: CartItem, index: number) => (
                     <ListGroup.Item key={index}>
                       <Row>
-                        <Col md={1}>
+                        <Col md={4}>
                           <Image
                             src={item.image}
                             alt={item.name}
@@ -109,7 +109,7 @@ const PlaceOrderScreen = ({ history }: RouteComponentProps) => {
                         </Col>
                         <Col md={4}>
                           {item.qty} x {item.price}&nbsp;€ ={' '}
-                          {item.qty * item.price}
+                          {parseFloat((item.qty * item.price).toFixed(2))}
                           &nbsp;€
                         </Col>
                       </Row>
