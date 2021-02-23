@@ -149,6 +149,7 @@ const ProductEditScreen: React.FC<MatchProps> = ({ match, history }) => {
             <Form.Group controlId='image'>
               <Form.Label>Image</Form.Label>
               <Form.Control
+                className='w-100'
                 type='text'
                 placeholder='Enter image url'
                 value={image}
@@ -168,6 +169,7 @@ const ProductEditScreen: React.FC<MatchProps> = ({ match, history }) => {
             <Form.Group controlId='imageMin'>
               <Form.Label>Image miniature</Form.Label>
               <Form.Control
+                className='w-100'
                 type='text'
                 placeholder='Enter image miniature url'
                 value={imageMin}
