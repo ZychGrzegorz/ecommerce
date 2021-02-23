@@ -1,3 +1,16 @@
+type ProductListRequest={
+    type: typeof import ('./store/constants').PRODUCT_LIST_REQUEST
+    payload?: any 
+    }
+
+type ProductListSucces={
+    type: typeof import ('./store/constants').PRODUCT_LIST_SUCCESS
+    payload:  {
+        products: Array<Product>,
+        pages: string, 
+        page: string 
+    }
+}
 
 type ProductListFail={
     type: typeof import ('./store/constants').PRODUCT_LIST_FAIL

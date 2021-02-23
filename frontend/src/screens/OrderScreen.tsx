@@ -107,6 +107,8 @@ const OrderScreen = ({ match, history }: RouteComponentProps<MatchParams>) => {
 
   const successPaymentHandler = (paymentResult: any) => {
     dispatch(payOrder(orderId, paymentResult))
+    console.log(order)
+    console.log('zrzucenie stanu z magazynu')
   }
 
   const deliverHandler = () => {
