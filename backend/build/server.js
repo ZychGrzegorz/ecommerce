@@ -26,6 +26,9 @@ app.use('/api/orders', orderRoutes);
 app.use('/api/upload', uploadRoutes);
 app.get('/api/config/paypal', function (req, res) { return res.send(process.env.PAYPAL_CLIENT_ID); });
 var __dirname = path.resolve();
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, '/frontend/build')));
+}
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 app.use(notFound);
 app.use(errorHandler);
