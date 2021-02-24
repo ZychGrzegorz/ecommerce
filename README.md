@@ -12,7 +12,7 @@
   </p>
 </p>
 
-<!-- USAGE
+<!-- USAGE-->
 ## Usage
 
 User:
