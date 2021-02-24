@@ -9,7 +9,7 @@ import {
   getOrderDetails,
   payOrder,
   deliverOrder,
-} from '../store/actions/orderActions'
+} from '../store/actions/TestorderActions'
 import {
   ORDER_PAY_RESET,
   ORDER_DELIVER_RESET,
