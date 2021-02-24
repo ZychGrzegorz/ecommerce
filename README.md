@@ -26,7 +26,23 @@ Admin:
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-It is a web application that is an ecommerce shop
+It is a web application that is an ecommerce shop. 
+
+The user can:
+* sign in, sign up
+* search for a product
+* add selected products to the cart
+* place an order
+* proceed the payment
+* check own orders
+* change of account details
+
+Admin has the ability to:
+* adding, editing a product
+* view of registered users
+* editing, changing the user details
+* view all orders
+* mark the order as delivered
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -45,7 +61,7 @@ npm run dev
 
 The application has been divided into the backend and frontend parts. 
 
-Frontend
+Frontend:
 * [React](https://reactjs.org/)
 * [TypeScript](https://www.typescriptlang.org/)
 * [Redux](https://redux.js.org/)
@@ -54,13 +70,13 @@ Frontend
 * [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML)
 * [CSS](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/CSS_basics)
 
-Backend
+Backend:
 * [Express.JS](https://expressjs.com/)
 * [TypeScript](https://www.typescriptlang.org/)
 
-Database
+Database:
 * [MongoDB](https://www.mongodb.com/)
 
-Hosting
+Hosting:
 * [Heroku](https://dashboard.heroku.com/)
 
