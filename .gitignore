@@ -5,8 +5,8 @@ node_modules
 node_modules/
 /.pnp
 .pnp.js
-build/
-/build
+# build/
+# /build
 instrukcje.md
 
 # testing
