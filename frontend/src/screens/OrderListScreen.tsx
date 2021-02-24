@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { listOrders } from '../store/actions/OrderActions'
+import { listOrders } from '../store/actions/orderActions'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Table, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
