@@ -238,6 +238,9 @@ const OrderScreen = ({ match, history }: RouteComponentProps<MatchParams>) => {
                     <PayPalButton
                       amount={order.totalPrice}
                       onSuccess={successPaymentHandler}
+                      options={{
+                        currency: 'EUR',
+                      }}
                     />
                   )}
                 </ListGroup.Item>
