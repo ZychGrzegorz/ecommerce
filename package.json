@@ -1,6 +1,9 @@
 {
   "name": "ecommerce",
   "version": "1.0.0",
+  "engines": {
+    "node": "14.13.1"
+  },
   "description": "",
   "main": "./backend/src/server",
   "dependencies": {
@@ -36,7 +39,7 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "data:import": "node backend/build/seeder",
     "data:destroy": "node backend/build/seeder -d",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend && npm install --prefix backend && npx tsc --prefix backend"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
   },
   "repository": {
     "type": "git",
