@@ -3,7 +3,7 @@ Music Shop - MERN Typescript App
 
 User:
 * login: steve@example.com
-* passowrd: 123456
+* password: 123456
 
 Admin:
 * login: admin@example.com
