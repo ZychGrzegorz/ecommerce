@@ -3,12 +3,12 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { Table, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../store/store'
-import { listOrders } from '../store/actions/orderActions'
+import { ORDER_DETAILS_RESET } from '../store/constants/orderConstants'
 import { RouteComponentProps } from 'react-router-dom'
+import { listOrders } from '../store/actions/orderActions'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import Meta from '../components/Meta'
-import { ORDER_DETAILS_RESET } from '../store/constants/orderConstants'
 
 type orderListType = {
   orders: Array<OrderType>

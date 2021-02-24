@@ -5,7 +5,7 @@ import { RootState } from "../store"
 import { CART_RESET } from '../constants/cartConstants'
 
 
-export const createOrder =(order: CreteOrder): ThunkAction<void, RootState,null,OrderCreateStateAction>=> async(dispatch, getState)=>{
+export const createOrder = (order: CreteOrder): ThunkAction<void, RootState,null,OrderCreateStateAction>=> async(dispatch, getState)=>{
    
     try {
         dispatch({
@@ -41,7 +41,7 @@ export const createOrder =(order: CreteOrder): ThunkAction<void, RootState,null,
     }
 }
 
-export const getOrderDetails =(id: string): ThunkAction<void, RootState,null,OrderDetailsStateAction>=> async(dispatch, getState)=>{
+export const getOrderDetails = (id: string): ThunkAction<void, RootState,null,OrderDetailsStateAction>=> async(dispatch, getState)=>{
        try {
         dispatch({
             type: ORDER_DETAILS_REQUEST
@@ -76,7 +76,7 @@ export const getOrderDetails =(id: string): ThunkAction<void, RootState,null,Ord
     }
 }
 
-export const payOrder =(orderId: string, paymentResult:any): ThunkAction<void, RootState,null,OrderPayStateAction>=> async(dispatch, getState)=>{
+export const payOrder = (orderId: string, paymentResult:any): ThunkAction<void, RootState,null,OrderPayStateAction>=> async(dispatch, getState)=>{
    
     try {
         dispatch({           
@@ -115,7 +115,7 @@ export const payOrder =(orderId: string, paymentResult:any): ThunkAction<void, R
     }
 }
 
-export const deliverOrder =(order: OrderType): ThunkAction<void, RootState,null,OrderDeliverStateAction>=> async(dispatch, getState)=>{
+export const deliverOrder = (order: OrderType): ThunkAction<void, RootState,null,OrderDeliverStateAction>=> async(dispatch, getState)=>{
    
     try {
         dispatch({           
@@ -153,7 +153,7 @@ export const deliverOrder =(order: OrderType): ThunkAction<void, RootState,null,
     }
 }
 
-export const listMyOrders =(): ThunkAction<void, RootState,null,OrderListMyAction>=> async(dispatch, getState)=>{
+export const listMyOrders = (): ThunkAction<void, RootState,null,OrderListMyAction>=> async(dispatch, getState)=>{
    
     try {
         dispatch({           
@@ -195,7 +195,7 @@ export const listMyOrders =(): ThunkAction<void, RootState,null,OrderListMyActio
     }
 }
 
-export const listOrders =(): ThunkAction<void, RootState,null,OrderListAction>=> async(dispatch, getState)=>{
+export const listOrders = (): ThunkAction<void, RootState,null,OrderListAction>=> async(dispatch, getState)=>{
    
     try {
         dispatch({           
